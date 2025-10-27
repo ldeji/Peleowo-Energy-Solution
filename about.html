@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About - Peleowo Energy</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Base & Reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Poppins', sans-serif; color: #fff; background-color: #000; }
+
+    /* Navbar */
+    .navbar {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      background: rgba(0,0,0,0.7);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      z-index: 1000;
+    }
+    .logo { font-size: 1.5rem; font-weight: 700; color: #00ff99; }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a { color: #fff; text-decoration: none; font-weight: 500; transition: 0.3s; }
+    .nav-links a:hover { color: #00ff99; }
+
+    /* Hamburger */
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { height: 3px; width: 25px; background: #fff; border-radius: 2px; transition: 0.4s; }
+    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    /* About Section */
+    .about-hero {
+      height: 50vh;
+      background: url('./Image/about-bg.jpg') center/cover no-repeat;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+    }
+    .about-hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+    }
+    .about-hero h1 {
+      position: relative;
+      z-index: 1;
+      font-size: 2.5rem;
+      color: #00ff99;
+    }
+
+    .about-content {
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 20px;
+      line-height: 1.8;
+      font-size: 1rem;
+      color: #ddd;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-links { display: none; flex-direction: column; background: #000; position: absolute; top: 60px; left: 0; width: 100%; padding: 20px; }
+      .nav-links.active { display: flex; }
+      .hamburger { display: flex; }
+      .about-hero h1 { font-size: 2rem; }
+    }
+
+    @media (max-width: 480px) {
+      .about-hero h1 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo">⚡ Peleowo Energy</div>
+    <nav class="nav-links" id="navLinks">
+      <a href="./index.html">Home</a>
+      <a href="./about.html">About</a>
+      <a href="./services.html">Services</a>
+      <a href="./contact.html">Contact</a>
+      <a href="./products.html">Products</a>
+    </nav>
+
+    <!-- Cart Icon -->
+    <div class="cart-icon">
+      <img src="./Image/cart-icon.png" alt="Cart" id="nav-cart-icon">
+      <span id="nav-item-count">0</span>
+    </div>
+
+    <!-- Hamburger -->
+    <div class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </header>
+
+  <!-- About Hero Section -->
+  <section class="about-hero">
+    <h1>About Peleowo Energy</h1>
+  </section>
+
+  <!-- About Content -->
+  <section class="about-content">
+    <p>
+      Peleowo Energy is committed to providing clean, sustainable, and efficient energy solutions for homes and businesses. 
+      From high-efficiency solar panels to electric vehicle chargers and hydrogen fuel cylinders, our products are designed 
+      to reduce your carbon footprint while saving on energy costs.
+    </p>
+    <p>
+      Our team of experts ensures that every solution is customized for your needs. Whether you're looking to transition to 
+      renewable energy or enhance your current systems, Peleowo Energy offers the technology, support, and service to make 
+      it seamless and affordable.
+    </p>
+    <p>
+      Join us in powering the future sustainably. Explore our products and services to find the perfect solution for you.
+    </p>
+  </section>
+
+  <script>
+    // Hamburger toggle
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      hamburger.classList.toggle('open');
+    });
+  </script>
+
+</body>
+</html>
+

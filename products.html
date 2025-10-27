@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products - Peleowo Energy</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Font Awesome for cart icon -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+<header class="navbar">
+  <div class="logo">⚡ Peleowo Energy</div>
+  <nav class="nav-links" id="navLinks">
+    <a href="./index.html">Home</a>
+    <a href="./about.html">About</a>
+    <a href="./contact.html">Contact</a>
+    <a href="./products.html">Products</a>
+  </nav>
+
+  <!-- Cart Icon -->
+  <div class="cart-icon">
+    <i id="nav-cart-icon" class="fa fa-shopping-cart"></i>
+    <span id="nav-item-count">0</span>
+  </div>
+
+  <!-- Hamburger -->
+  <div class="hamburger" id="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</header>
+
+<section class="shop">
+  <h2 class="section-title">Our Energy Products</h2>
+  <div class="shop-layout">
+    <div class="products-area">
+      <!-- Product Card Example -->
+      <div class="product-card">
+        <img src="./Image/solar-panel.jpg" alt="Solar Panel">
+        <h4>SolarMax Panel</h4>
+        <p class="product-desc">High-efficiency solar panels for clean energy output.</p>
+        <p class="price">₦120,000</p>
+        <div class="product-actions">
+          <button class="add-btn" data-name="SolarMax Panel" data-price="120000">Add</button>
+          <button class="details-btn" data-name="SolarMax Panel">View Details</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="./Image/ev-charger.jpg" alt="EV Charger">
+        <h4>EV Charger Pro</h4>
+        <p class="product-desc">Smart charger for home and public EV stations.</p>
+        <p class="price">₦600,000</p>
+        <div class="product-actions">
+          <button class="add-btn" data-name="EV Charger Pro" data-price="600000">Add</button>
+          <button class="details-btn" data-name="EV Charger Pro">View Details</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="./Image/hydrogen.jpg" alt="Hydrogen">
+        <h4>Hydrogen Cylinder</h4>
+        <p class="product-desc">Clean fuel for transport, industry, and heating.</p>
+        <p class="price">₦150,000</p>
+        <div class="product-actions">
+          <button class="add-btn" data-name="Hydrogen Gas" data-price="150000">Add</button>
+          <button class="details-btn" data-name="Hydrogen Gas">View Details</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="./Image/turbine.jpg" alt="Turbine Energy">
+        <h4>Turbine Energy</h4>
+        <p class="product-desc">Modern wind turbines to generate electricity efficiently.</p>
+        <p class="price">₦250,000</p>
+        <div class="product-actions">
+          <button class="add-btn" data-name="Turbine Energy" data-price="250000">Add</button>
+          <button class="details-btn" data-name="Turbine Energy">View Details</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <aside class="cart">
+      <h3>Your Cart (<span id="item-count">0</span>)</h3>
+      <ul id="cart-items" class="cart-items-list"></ul>
+      <p id="cart-total">Total: ₦0</p>
+      <div class="cart-buttons">
+        <button id="clear-cart">Clear Cart</button>
+        <button class="checkout-btn" onclick="window.location.href='checkout.html'">Checkout</button>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- Product Details Modal -->
+<div id="productModal" class="modal">
+  <div class="modal-content">
+    <span id="closeModal" class="close-btn">&times;</span>
+    <img id="modalImage" src="" alt="Product Image">
+    <h3 id="modalTitle"></h3>
+    <p id="modalDesc"></p>
+  </div>
+</div>
+
+<script src="./scripts.js"></script>
+</body>
+</html>
+
+
+
