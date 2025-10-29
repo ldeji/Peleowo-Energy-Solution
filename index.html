@@ -107,6 +107,19 @@
       .hero h1 { font-size: 1.5rem; }
       .hero p { font-size: 0.9rem; }
     }
+    @media (max-width: 768px) {
+    .hero {
+    background-size: contain;   /* Shrinks image so the full picture fits */
+    background-position: center middle; /* Keeps focus on the top or main subject */
+    background-repeat: no-repeat;
+    height: 80vh; /* Shorter height so full image fits */
+   }
+   }
+    @media (max-width: 768px) {
+      .cta-btn {
+        margin-top: 25px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -120,12 +133,6 @@
       <a href="./contact.html">Contact</a>
       <a href="./products.html">Products</a>
     </nav>
-
-    <!-- Cart Icon -->
-    <div class="cart-icon">
-      <img src="./Image/cart-icon.png" alt="Cart" id="nav-cart-icon">
-      <span id="nav-item-count">0</span>
-    </div>
 
     <!-- Hamburger -->
     <div class="hamburger" id="hamburger">

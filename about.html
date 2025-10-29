@@ -56,16 +56,39 @@
       z-index: 1;
       font-size: 2.5rem;
       color: #00ff99;
+       margin-bottom: 0.5rem; 
     }
 
-    .about-content {
+   .about-content {
       max-width: 900px;
-      margin: 50px auto;
-      padding: 20px;
-      line-height: 1.8;
-      font-size: 1rem;
-      color: #ddd;
-    }
+      margin: 120px auto;
+      padding: 0 20px;
+      color: #fff;
+      text-align: justify;
+      line-height: 1.6;
+   }
+ 
+   .about-content p {
+  margin-top: -0.5rem;  /* reduced top margin */
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  color: #ddd;
+  font-size: 1.1rem;
+  text-align: justify;
+}
+  .about-content img {
+  display: block;
+  width: 60%;          /* Shrunk for desktop */
+  height: auto;
+  margin: 30px auto;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+  transition: transform 0.3s ease;
+}
+
+.about-content img:hover {
+  transform: scale(1.3);
+}
 
     /* Responsive */
     @media (max-width: 768px) {
@@ -93,12 +116,7 @@
       <a href="./products.html">Products</a>
     </nav>
 
-    <!-- Cart Icon -->
-    <div class="cart-icon">
-      <img src="./Image/cart-icon.png" alt="Cart" id="nav-cart-icon">
-      <span id="nav-item-count">0</span>
-    </div>
-
+  
     <!-- Hamburger -->
     <div class="hamburger" id="hamburger">
       <span></span>
@@ -118,12 +136,18 @@
       Peleowo Energy is committed to providing clean, sustainable, and efficient energy solutions for homes and businesses. 
       From high-efficiency solar panels to electric vehicle chargers and hydrogen fuel cylinders, our products are designed 
       to reduce your carbon footprint while saving on energy costs.
-    </p>
+    </p><br><br>
+    <img src="./Image/Renewable Energy Sources2.jpg" alt="all renewable."><br><br>
     <p>
       Our team of experts ensures that every solution is customized for your needs. Whether you're looking to transition to 
       renewable energy or enhance your current systems, Peleowo Energy offers the technology, support, and service to make 
       it seamless and affordable.
-    </p>
+    </p><br><br>
+    <p>
+       We are committed to delivering the highest quality solutions to our customers, and we are constantly exploring new
+        technologies and approaches to achieve our goals.
+    </p><br><br>
+    <img src="./Image/wind-farm1.jpg" alt="wf"><br><br>
     <p>
       Join us in powering the future sustainably. Explore our products and services to find the perfect solution for you.
     </p>
@@ -131,9 +155,9 @@
 
   <script>
     // Hamburger toggle
-    const hamburger = document.getElementById('hamburger');
-    const navLinks = document.getElementById('navLinks');
-    hamburger.addEventListener('click', () => {
+      const hamburger = document.getElementById('hamburger');
+      const navLinks = document.getElementById('navLinks');
+      hamburger.addEventListener('click', () => {
       navLinks.classList.toggle('active');
       hamburger.classList.toggle('open');
     });
