@@ -1,72 +1,98 @@
-// --- Cart Setup ---
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
+// === Peleowo Energy Cart & Navbar Script ===
 
-const cartItemsCount = document.getElementById('nav-item-count');
-const cartSidebarCount = document.getElementById('item-count');
-const cartSidebarItems = document.getElementById('cart-items');
-const cartTotal = document.getElementById('cart-total');
+// Run everything after DOM is ready
+document.addEventListener("DOMContentLoaded", () => {
 
-// --- Update Cart Display ---
-function updateCart() {
-  let totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  console.log("✅ script.js loaded successfully");
 
-  if (cartItemsCount) cartItemsCount.textContent = totalItems;
-  if (cartSidebarCount) cartSidebarCount.textContent = totalItems;
+  // --- Cart Setup ---
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-  if (cartSidebarItems) {
-    cartSidebarItems.innerHTML = '';
-    let totalPrice = 0;
+  const cartItemsCount = document.getElementById("nav-item-count");
+  const cartSidebarCount = document.getElementById("item-count");
+  const cartSidebarItems = document.getElementById("cart-items");
+  const cartTotal = document.getElementById("cart-total");
+  const clearCartBtn = document.getElementById("clear-cart");
 
-    cart.forEach(item => {
-      const li = document.createElement('li');
-      li.textContent = `${item.name} x${item.quantity} - ₦${(item.price * item.quantity).toLocaleString()}`;
-      cartSidebarItems.appendChild(li);
-      totalPrice += item.price * item.quantity;
-    });
+  // --- Update Cart Display ---
+  function updateCart() {
+    let totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
-    if (cartTotal) cartTotal.textContent = `Total: ₦${totalPrice.toLocaleString()}`;
-  }
+    // Navbar cart counter
+    if (cartItemsCount) cartItemsCount.textContent = totalItems;
+    if (cartSidebarCount) cartSidebarCount.textContent = totalItems;
 
-  localStorage.setItem('cart', JSON.stringify(cart));
-}
+    // Sidebar items (for checkout page)
+    if (cartSidebarItems) {
+      cartSidebarItems.innerHTML = "";
+      let totalPrice = 0;
 
-// --- Add to Cart ---
-document.querySelectorAll('.add-btn').forEach(button => {
-  button.addEventListener('click', () => {
-    const name = button.getAttribute('data-name');
-    const price = parseFloat(button.getAttribute('data-price'));
+      cart.forEach((item) => {
+        const li = document.createElement("li");
+        li.textContent = `${item.name} x${item.quantity} - ₦${(
+          item.price * item.quantity
+        ).toLocaleString()}`;
+        cartSidebarItems.appendChild(li);
+        totalPrice += item.price * item.quantity;
+      });
 
-    const existingItem = cart.find(item => item.name === name);
-    if (existingItem) {
-      existingItem.quantity += 1;
-    } else {
-      cart.push({ name, price, quantity: 1 });
+      if (cartTotal)
+        cartTotal.textContent = `Total: ₦${totalPrice.toLocaleString()}`;
     }
 
-    updateCart();
-    // Optional: toast instead of alert
-    // showToast(`${name} added to cart!`);
+    // Save cart to localStorage
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }
+
+  // --- Add to Cart ---
+  const addButtons = document.querySelectorAll(".add-btn");
+  console.log(addButtons.length, "add buttons found");
+
+  addButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const name = button.getAttribute("data-name");
+      const price = parseFloat(button.getAttribute("data-price"));
+
+      const existingItem = cart.find((item) => item.name === name);
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        cart.push({ name, price, quantity: 1 });
+      }
+
+      updateCart();
+
+      // Optional feedback (non-blocking)
+      button.textContent = "Added ✓";
+      button.style.background = "#00cc77";
+      setTimeout(() => {
+        button.textContent = "Add";
+        button.style.background = "#00ff99";
+      }, 1200);
+    });
   });
+
+  // --- Clear Cart ---
+  if (clearCartBtn) {
+    clearCartBtn.addEventListener("click", () => {
+      cart = [];
+      updateCart();
+      alert("Cart cleared!");
+    });
+  }
+
+  // --- Hamburger Toggle (for mobile) ---
+  const hamburger = document.getElementById("hamburger");
+  const navLinks = document.getElementById("navLinks");
+
+  if (hamburger && navLinks) {
+    hamburger.addEventListener("click", () => {
+      navLinks.classList.toggle("show");
+      hamburger.classList.toggle("open");
+    });
+  }
+
+  // --- Initialize Cart Display on Load ---
+  updateCart();
 });
 
-// --- Clear Cart ---
-const clearCartBtn = document.getElementById('clear-cart');
-if (clearCartBtn) {
-  clearCartBtn.addEventListener('click', () => {
-    cart = [];
-    updateCart();
-  });
-}
-
-// --- Hamburger Toggle (for mobile) ---
-const hamburger = document.getElementById('hamburger');
-const navLinks = document.getElementById('navLinks');
-if (hamburger && navLinks) {
-  hamburger.addEventListener('click', () => {
-    navLinks.classList.toggle('show');
-    hamburger.classList.toggle('open');
-  });
-}
-
-// Initialize cart display
-updateCart();

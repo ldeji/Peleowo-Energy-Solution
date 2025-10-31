@@ -133,7 +133,7 @@
       border-radius: 10px;
       overflow: hidden;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: transform 1s ease, box-shadow 0.3s ease;
     }
 
     .product-card:hover {
@@ -213,9 +213,9 @@
       <a href="checkout.html">Checkout</a>
     </nav>
     <div class="cart-icon">
-      <i class="fas fa-shopping-cart"></i>
-      <span id="nav-item-count">0</span>
-    </div><br>
+     <i class="fas fa-shopping-cart"></i>
+     <span id="nav-item-count">0</span>
+    </div>
 
     <div class="hamburger" id="hamburger">
       <span></span>
@@ -241,6 +241,14 @@
       </div>
     </div>
 
+  <div class="clear-cart-container" style="text-align:center; margin:40px 0;">
+  <button id="clear-cart"
+    style="background:#ff4444; color:#fff; padding:10px 20px; border:none; border-radius:6px; cursor:pointer; font-weight:600;">
+    Clear Cart
+  </button>
+  </div>
+
+     
     <div class="product-card">
       <img src="./Image/Inverter 1.5kva.jpg" alt="Inverter 1.5KVA" />
       <div class="product-info">
@@ -264,7 +272,7 @@
       <div class="product-info">
         <h3>Solar Street Light</h3>
         <p>₦72,000</p>
-        <button class="add-btn" data-name="Solar Street Light" data-price="72000">Add</button>
+        <button class="add-btn" data-name="Solar Street Light 220Watts" data-price="72000">Add</button>
       </div>
     </div>
 
@@ -273,7 +281,7 @@
       <div class="product-info">
         <h3>Solar-Charger</h3>
         <p>₦45,000</p>
-        <button class="add-btn" data-name="Solar-Charger" data-price="45000">Add</button>
+        <button class="add-btn" data-name="Solar-Charger 220v" data-price="45000">Add</button>
       </div>
     </div>
 
@@ -282,7 +290,7 @@
       <div class="product-info">
         <h3>Turbine-Energy</h3>
         <p>₦225,000</p>
-        <button class="add-btn" data-name="Turbine-Energy" data-price="225000">Add</button>
+        <button class="add-btn" data-name="Turbine-Energy 1000Watts" data-price="225000">Add</button>
       </div>
     </div>
 
@@ -291,7 +299,7 @@
       <div class="product-info">
         <h3>EV-Charger</h3>
         <p>₦225,000</p>
-        <button class="add-btn" data-name="EV-Charger" data-price="225000">Add</button>
+        <button class="add-btn" data-name="EV-Charger 250v" data-price="225000">Add</button>
       </div>
     </div>
 
@@ -300,20 +308,29 @@
       <div class="product-info">
         <h3>Hydrogen-Gas</h3>
         <p>₦90,000</p>
-        <button class="add-btn" data-name="Hydrogen-Gas" data-price="90000">Add</button>
+        <button class="add-btn" data-name="Hydrogen-Gas-50kg" data-price="90000">Add</button>
       </div>
     </div>
   </section>
 
   <!-- Script Hamburger Toggle-->
-   <script>
-      const hamburger = document.getElementById('hamburger');
-      const navLinks = document.getElementById('navLinks');
-      hamburger.addEventListener('click', () => {
-      navLinks.classList.toggle('active');
-      hamburger.classList.toggle('open');
-    });
-  </script>
+<script>
+  // ✅ Ensure hamburger toggle works consistently across all pages
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('active'); // unified with script.js
+    hamburger.classList.toggle('open');
+  });
+
+  // ✅ Check that script.js actually loaded
+  console.log("✅ script.js loaded successfully");
+
+  // ✅ Check buttons detected
+  console.log(document.querySelectorAll('.add-btn').length, "add buttons found");
+</script>
+  <script src="script.js"></script>
 </body>
 </html>
 

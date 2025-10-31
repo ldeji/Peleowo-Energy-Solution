@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Checkout - Peleowo Energy</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
   <style>
     body {
       font-family: 'Poppins', sans-serif;
@@ -15,33 +15,70 @@
     }
 
     /* Navbar */
- .navbar {
-  position: fixed;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90%; /* Keeps navbar compact and centered */
-  max-width: 1200px; /* Prevents it from stretching too wide on large screens */
-  background: rgba(0, 0, 0, 0.9);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.8rem 1.5rem;
-  border-radius: 50px; /* Gives it a neat, smooth pill shape */
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
-  z-index: 1000;
-}
-    .logo { font-size: 1.5rem; font-weight: bold; color: #00ff99; }
-    .nav-links { display: flex; gap: 2rem; }
-    .nav-links a { color: #fff; text-decoration: none; transition: 0.3s; }
-    .nav-links a:hover { color: #00ff99; }
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 1200px;
+      background: rgba(0, 0, 0, 0.9);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+      z-index: 1000;
+    }
 
-    /* Hamburger */
-    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
-    .hamburger span { height: 3px; width: 25px; background: #fff; border-radius: 2px; transition: 0.4s; }
-    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #00ff99;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #00ff99;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+
+    .hamburger span {
+      height: 3px;
+      width: 25px;
+      background: #fff;
+      border-radius: 2px;
+      transition: 0.4s;
+    }
+
+    .hamburger.open span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .hamburger.open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.open span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
 
     /* Checkout Container */
     .checkout-container {
@@ -50,37 +87,68 @@
       background: #111;
       padding: 30px;
       border-radius: 10px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     }
 
-    h2 { text-align: center; color: #00aaff; margin-bottom: 25px; }
+    h2 {
+      text-align: center;
+      color: #00aaff;
+      margin-bottom: 25px;
+    }
 
-    /* Cart Summary */
     .cart-summary {
       margin-bottom: 25px;
       background: #222;
       padding: 15px;
       border-radius: 8px;
     }
-    .cart-summary h3 { margin-top: 0; color: #00ff99; }
-    .cart-summary ul { list-style: none; padding: 0; margin: 10px 0; }
-    .cart-summary li { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid #333; }
-    .cart-summary p { margin: 10px 0 0; font-weight: 600; color: #00aaff; }
 
-    /* Form */
+    .cart-summary h3 {
+      margin-top: 0;
+      color: #00ff99;
+    }
+
+    .cart-summary ul {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0;
+    }
+
+    .cart-summary li {
+      display: flex;
+      justify-content: space-between;
+      padding: 5px 0;
+      border-bottom: 1px solid #333;
+      font-size: 0.95rem;
+    }
+
+    .cart-summary p {
+      margin: 10px 0 0;
+      font-weight: 600;
+      color: #00aaff;
+      text-align: right;
+      font-size: 1.05rem;
+    }
+
     form {
       display: flex;
       flex-direction: column;
       gap: 15px;
     }
-    form label { font-weight: 600; }
-    form input, form select {
+
+    form label {
+      font-weight: 600;
+    }
+
+    form input,
+    form select {
       padding: 10px;
       border-radius: 8px;
       border: none;
       width: 100%;
       font-size: 1rem;
     }
+
     form button {
       background: #00ff99;
       color: #000;
@@ -92,19 +160,35 @@
       cursor: pointer;
       transition: 0.3s;
     }
-    form button:hover { background: #00cc77; transform: translateY(-2px); }
 
-    /* Responsive */
+    form button:hover {
+      background: #00cc77;
+      transform: translateY(-2px);
+    }
+
     @media (max-width: 768px) {
-      .nav-links { display: none; flex-direction: column; background: #000; position: absolute; top: 60px; left: 0; width: 100%; padding: 20px; }
-      .nav-links.active { display: flex; }
-      .hamburger { display: flex; }
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        background: #000;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        padding: 20px;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .hamburger {
+        display: flex;
+      }
     }
   </style>
 </head>
 <body>
-
-  <!-- Navbar -->
   <header class="navbar">
     <div class="logo">⚡ Peleowo Energy</div>
     <nav class="nav-links" id="navLinks">
@@ -113,8 +197,6 @@
       <a href="./contact.html">Contact</a>
       <a href="./products.html">Products</a>
     </nav>
-
-    <!-- Hamburger -->
     <div class="hamburger" id="hamburger">
       <span></span>
       <span></span>
@@ -122,21 +204,18 @@
     </div>
   </header>
 
-  <!-- Checkout Section -->
   <section class="checkout-container">
     <h2>Checkout</h2>
 
-    <!-- Cart Summary -->
     <div class="cart-summary">
       <h3>Your Cart (<span id="summary-count">0</span> items)</h3>
       <ul id="summary-items"></ul>
       <p>Total: ₦<span id="summary-total">0</span></p>
     </div>
 
-    <!-- Payment Form -->
     <form action="https://formspree.io/f/your-form-id" method="POST">
       <label for="fullName">Full Name</label>
-      <input type="text" id="fullName" name="fullName" required placeholder="Enter your full name">
+      <input type="text" id="fullName" name="fullName" required placeholder="Enter your full name" />
 
       <label for="bankName">Bank Name</label>
       <select id="bankName" name="bankName" required>
@@ -147,51 +226,57 @@
       </select>
 
       <label for="payerEmail">Your Email</label>
-      <input type="email" id="payerEmail" name="payerEmail" required placeholder="Enter your email">
+      <input type="email" id="payerEmail" name="payerEmail" required placeholder="Enter your email" />
 
       <button type="submit">Confirm Payment</button>
     </form>
 
-    <p style="margin-top:15px; font-size:0.9rem; color:#ccc;">
+    <p style="margin-top: 15px; font-size: 0.9rem; color: #ccc;">
       *Please ensure you have made payment to one of our bank accounts listed. This form sends a confirmation email to us.
     </p>
 
-    <button onclick="window.location.href='products.html'" style="margin-top:15px; padding:10px 20px; border-radius:20px; border:none; background:#00aaff; color:#fff; cursor:pointer;">
+    <button onclick="window.location.href='products.html'" style="margin-top: 15px; padding: 10px 20px; border-radius: 20px; border: none; background: #00aaff; color: #fff; cursor: pointer;">
       Continue Shopping
     </button>
   </section>
 
   <script>
-    // Hamburger toggle
-    const hamburger = document.getElementById('hamburger');
-    const navLinks = document.getElementById('navLinks');
-    hamburger.addEventListener('click', () => {
-      navLinks.classList.toggle('active');
-      hamburger.classList.toggle('open');
+    // --- Navbar Toggle ---
+    const hamburger = document.getElementById("hamburger");
+    const navLinks = document.getElementById("navLinks");
+    hamburger.addEventListener("click", () => {
+      navLinks.classList.toggle("active");
+      hamburger.classList.toggle("open");
     });
 
-    // Dynamic Cart Summary from localStorage
-    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    const summaryItems = document.getElementById('summary-items');
-    const summaryCount = document.getElementById('summary-count');
-    const summaryTotal = document.getElementById('summary-total');
+    // --- Load Cart Data from localStorage ---
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const summaryItems = document.getElementById("summary-items");
+    const summaryCount = document.getElementById("summary-count");
+    const summaryTotal = document.getElementById("summary-total");
 
     let total = 0;
-    summaryItems.innerHTML = '';
+    summaryItems.innerHTML = "";
 
-    cartItems.forEach(item => {
-      const li = document.createElement('li');
-      li.textContent = `${item.name} x${item.quantity}`;
-      const priceSpan = document.createElement('span');
-      priceSpan.textContent = `₦${item.price * item.quantity}`;
-      li.appendChild(priceSpan);
+    if (cart.length > 0) {
+      cart.forEach((item) => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+          <span>${item.name} x${item.quantity}</span>
+          <span>₦${(item.price * item.quantity).toLocaleString()}</span>
+        `;
+        summaryItems.appendChild(li);
+        total += item.price * item.quantity;
+      });
+    } else {
+      const li = document.createElement("li");
+      li.textContent = "Your cart is empty.";
+      li.style.textAlign = "center";
       summaryItems.appendChild(li);
-      total += item.price * item.quantity;
-    });
+    }
 
-    summaryCount.textContent = cartItems.length;
+    summaryCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
     summaryTotal.textContent = total.toLocaleString();
   </script>
-
 </body>
 </html>
