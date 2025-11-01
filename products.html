@@ -91,12 +91,30 @@
       border-radius: 50%;
       padding: 2px 6px;
     }
-  /* Hamburger */
-    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
-    .hamburger span { height: 3px; width: 25px; background: #fff; border-radius: 2px; transition: 0.4s; }
-    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+    .hamburger span {
+      height: 3px;
+      width: 25px;
+      background: #fff;
+      border-radius: 2px;
+      transition: 0.4s;
+    }
+    .hamburger.open span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    .hamburger.open span:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.open span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
 
     /* --- Hero --- */
     .hero {
@@ -177,7 +195,101 @@
       background: #00cc77;
     }
 
-    /* --- Responsive                     Responsive--- */
+    /* --- CART MODAL --- */
+    .cart-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+
+    .cart-content {
+      background: #fff;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 500px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .cart-items {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .cart-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 10px;
+      gap: 10px;
+    }
+
+    .cart-item img {
+      width: 60px;
+      height: 60px;
+      border-radius: 6px;
+      object-fit: cover;
+    }
+
+    .cart-item-details {
+      flex: 1;
+      text-align: left;
+    }
+
+    .quantity-controls {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .quantity-controls button {
+      background: #00ff99;
+      border: none;
+      width: 25px;
+      height: 25px;
+      border-radius: 4px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #000;
+    }
+
+    .cart-total {
+      margin-top: 20px;
+      font-weight: bold;
+      color: #002b1f;
+    }
+
+    .cart-buttons {
+      margin-top: 15px;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .cart-buttons button {
+      padding: 8px 15px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    #clear-cart-btn { background: #ff4444; color: #fff; }
+    #close-cart { background: #ddd; }
+    .cart-buttons button:hover { opacity: 0.8; }
+
+    /* --- Responsive --- */
     @media (max-width: 768px) {
       .nav-links {
         position: absolute;
@@ -211,15 +323,13 @@
       <a href="contact.html">Contact</a>
       <a href="checkout.html">Checkout</a>
     </nav>
-    <div class="cart-icon">
+    <div class="cart-icon" id="cart-icon">
      <i class="fas fa-shopping-cart"></i>
      <span id="nav-item-count">0</span>
     </div>
 
     <div class="hamburger" id="hamburger">
-      <span></span>
-      <span></span>
-      <span></span>
+      <span></span><span></span><span></span>
     </div>
   </header>
 
@@ -236,24 +346,16 @@
       <div class="product-info">
         <h3>Solar Panel 200W</h3>
         <p>₦50,000</p>
-        <button class="add-btn" data-name="Solar Panel 200W" data-price="50000">Add</button>
+        <button class="add-btn" data-name="Solar Panel 200W" data-price="50000" data-image="./Image/solar-panel.jpg">Add</button>
       </div>
     </div>
 
-  <div class="clear-cart-container" style="text-align:center; margin:40px 0;">
-  <button id="clear-cart"
-    style="background:#ff4444; color:#fff; padding:10px 20px; border:none; border-radius:6px; cursor:pointer; font-weight:600;">
-    Clear Cart
-  </button>
-  </div>
-
-     
     <div class="product-card">
       <img src="./Image/Inverter 1.5kva.jpg" alt="Inverter 1.5KVA" />
       <div class="product-info">
         <h3>Inverter 1.5KVA</h3>
         <p>₦120,000</p>
-        <button class="add-btn" data-name="Inverter 1.5KVA" data-price="120000">Add</button>
+        <button class="add-btn" data-name="Inverter 1.5KVA" data-price="120000" data-image="./Image/Inverter 1.5kva.jpg">Add</button>
       </div>
     </div>
 
@@ -262,7 +364,7 @@
       <div class="product-info">
         <h3>Battery 220AH</h3>
         <p>₦300,000</p>
-        <button class="add-btn" data-name="Battery 220AH" data-price="300000">Add</button>
+        <button class="add-btn" data-name="Battery 220AH" data-price="300000" data-image="./Image/Tubular Battery.png">Add</button>
       </div>
     </div>
 
@@ -271,57 +373,152 @@
       <div class="product-info">
         <h3>Solar Street Light</h3>
         <p>₦72,000</p>
-        <button class="add-btn" data-name="Solar Street Light 220Watts" data-price="72000">Add</button>
+        <button class="add-btn" data-name="Solar Street Light" data-price="72000" data-image="./Image/solar-street-light-in-nigeria.jpg">Add</button>
       </div>
     </div>
 
     <div class="product-card">
-      <img src="./Image/solar-charger.jpg" alt="Solar-Charger" />
+      <img src="./Image/solar-charger.jpg" alt="Solar Charger" />
       <div class="product-info">
-        <h3>Solar-Charger</h3>
+        <h3>Solar Charger</h3>
         <p>₦45,000</p>
-        <button class="add-btn" data-name="Solar-Charger 220v" data-price="45000">Add</button>
+        <button class="add-btn" data-name="Solar Charger" data-price="45000" data-image="./Image/solar-charger.jpg">Add</button>
       </div>
     </div>
 
     <div class="product-card">
-      <img src="./Image/turbine.jpg" alt="turbines" />
+      <img src="./Image/turbine.jpg" alt="Turbine-Energy" />
       <div class="product-info">
-        <h3>Turbine-Energy</h3>
+        <h3>Turbine Energy</h3>
         <p>₦225,000</p>
-        <button class="add-btn" data-name="Turbine-Energy 1000Watts" data-price="225000">Add</button>
+        <button class="add-btn" data-name="Turbine Energy" data-price="225000" data-image="./Image/turbine.jpg">Add</button>
       </div>
     </div>
 
     <div class="product-card">
-      <img src="./Image/ev-charger.jpg" alt="EV-Charger" />
+      <img src="./Image/ev-charger.jpg" alt="EV Charger" />
       <div class="product-info">
-        <h3>EV-Charger</h3>
+        <h3>EV Charger</h3>
         <p>₦225,000</p>
-        <button class="add-btn" data-name="EV-Charger 250v" data-price="225000">Add</button>
+        <button class="add-btn" data-name="EV Charger" data-price="225000" data-image="./Image/ev-charger.jpg">Add</button>
       </div>
     </div>
 
     <div class="product-card">
-      <img src="./Image/hydrogen retails.jpg" alt="Hydrogen" />
+      <img src="./Image/hydrogen retails.jpg" alt="Hydrogen Gas" />
       <div class="product-info">
-        <h3>Hydrogen-Gas</h3>
+        <h3>Hydrogen Gas</h3>
         <p>₦90,000</p>
-        <button class="add-btn" data-name="Hydrogen-Gas-50kg" data-price="90000">Add</button>
+        <button class="add-btn" data-name="Hydrogen Gas" data-price="90000" data-image="./Image/hydrogen retails.jpg">Add</button>
       </div>
     </div>
   </section>
 
-<script>
-  //Ensure hamburger toggle works consistently across all pages
-  const hamburger = document.getElementById('hamburger');
-  const navLinks = document.getElementById('navLinks');
-  hamburger.addEventListener('click', () => {
-    navLinks.classList.toggle('active'); // unified with script.js
-    hamburger.classList.toggle('open');
-  });
-</script>
-  <script src="script.js"></script>
+  <!-- 🛒 CART OVERVIEW MODAL -->
+  <div id="cart-modal" class="cart-modal">
+    <div class="cart-content">
+      <h3>Your Cart (<span id="cart-modal-count">0</span> items)</h3>
+      <div id="cart-modal-items" class="cart-items"></div>
+      <p class="cart-total">Total: ₦<span id="cart-modal-total">0</span></p>
+      <div class="cart-buttons">
+        <button id="clear-cart-btn">Clear Cart</button>
+        <button onclick="window.location.href='checkout.html'">Checkout</button>
+        <button id="close-cart">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      hamburger.classList.toggle('open');
+    });
+
+    // === CART LOGIC ===
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    const cartIcon = document.getElementById('cart-icon');
+    const cartModal = document.getElementById('cart-modal');
+    const cartModalItems = document.getElementById('cart-modal-items');
+    const cartModalCount = document.getElementById('cart-modal-count');
+    const cartModalTotal = document.getElementById('cart-modal-total');
+    const navItemCount = document.getElementById('nav-item-count');
+
+    function updateCartDisplay() {
+      localStorage.setItem('cart', JSON.stringify(cart));
+
+      let totalItems = 0;
+      let totalPrice = 0;
+      cartModalItems.innerHTML = '';
+
+      cart.forEach((item, index) => {
+        totalItems += item.quantity;
+        totalPrice += item.price * item.quantity;
+
+        const div = document.createElement('div');
+        div.classList.add('cart-item');
+        div.innerHTML = `
+          <img src="${item.image}" alt="${item.name}">
+          <div class="cart-item-details">
+            <h4>${item.name}</h4>
+            <p>₦${item.price.toLocaleString()}</p>
+          </div>
+          <div class="quantity-controls">
+            <button onclick="changeQuantity(${index}, -1)">–</button>
+            <span>${item.quantity}</span>
+            <button onclick="changeQuantity(${index}, 1)">+</button>
+          </div>
+        `;
+        cartModalItems.appendChild(div);
+      });
+
+      cartModalCount.textContent = totalItems;
+      navItemCount.textContent = totalItems;
+      cartModalTotal.textContent = totalPrice.toLocaleString();
+    }
+
+    function changeQuantity(index, delta) {
+      cart[index].quantity += delta;
+      if (cart[index].quantity <= 0) {
+        cart.splice(index, 1);
+      }
+      updateCartDisplay();
+    }
+
+    document.querySelectorAll('.add-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const name = btn.getAttribute('data-name');
+        const price = parseFloat(btn.getAttribute('data-price'));
+        const image = btn.getAttribute('data-image');
+
+        const existing = cart.find(i => i.name === name);
+        if (existing) {
+          existing.quantity += 1;
+        } else {
+          cart.push({ name, price, image, quantity: 1 });
+        }
+        updateCartDisplay();
+      });
+    });
+
+    cartIcon.addEventListener('click', () => {
+      cartModal.style.display = 'flex';
+      updateCartDisplay();
+    });
+
+    document.getElementById('close-cart').addEventListener('click', () => {
+      cartModal.style.display = 'none';
+    });
+
+    document.getElementById('clear-cart-btn').addEventListener('click', () => {
+      cart = [];
+      updateCartDisplay();
+    });
+
+    updateCartDisplay();
+  </script>
 </body>
 </html>
 
