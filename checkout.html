@@ -215,6 +215,10 @@
     <form action="https://formspree.io/f/your-form-id" method="POST">
       <label for="fullName">Full Name:</label>
       <input type="text" id="fullName" name="fullName" required placeholder="Enter your full name" />
+      <label for="payerEmail">Your Email:</label>
+      <input type="email" id="payerEmail" name="payerEmail" required placeholder="Enter your email" />
+      <label for="payerNumber">Your number:</label>
+      <input type="number" name="payerNumber" id="payerNumber" required placeholder="Enter your phone number" />
 
       <label for="bankName">Our Bank Details:</label>
       <select id="bankName" name="bankName" required>
@@ -223,11 +227,6 @@
         <option value="Zenith Bank">Opay  07080450190</option>
         <option value="Access Bank">Access Bank 0062974597</option>
       </select>
-
-      <label for="payerEmail">Your Email:</label>
-      <input type="email" id="payerEmail" name="payerEmail" required placeholder="Enter your email" />
-      <label for="payerNumber">Your number:</label>
-      <input type="number" name="payerNumber" id="payerNumber" required placeholder="Enter your phone number" />
 
       <button type="submit">Confirm Payment</button>
     </form>
