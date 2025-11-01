@@ -212,7 +212,7 @@
       <p>Total: ₦<span id="summary-total">0</span></p>
     </div>
 
-    <form action="https://formspree.io/f/your-form-id" method="POST">
+    <form action="https://formspree.io/f/xanlllll" method="POST">
       <label for="fullName">Full Name:</label>
       <input type="text" id="fullName" name="fullName" required placeholder="Enter your full name" />
       <label for="payerEmail">Your Email:</label>
@@ -227,6 +227,9 @@
         <option value="Zenith Bank">Opay  07080450190</option>
         <option value="Access Bank">Access Bank 0062974597</option>
       </select>
+
+      <!-- Hidden autofilled fields --> 
+       <input type="hidden" id="cartItemsField" name="cartItems"> <input type="hidden" id="cartTotalField" name="cartTotal">
 
       <button type="submit">Confirm Payment</button>
     </form>
@@ -273,6 +276,36 @@
       li.textContent = "Your cart is empty.";
       li.style.textAlign = "center";
       summaryItems.appendChild(li);
+    }
+
+    
+    // --- Checkout Auto-Fill Hidden Fields ---
+    const cartItemsField = document.getElementById("cartItemsField");
+    const cartTotalField = document.getElementById("cartTotalField");
+
+    if (cart.length > 0) {
+      let summary = "";
+      let totalAmount = 0;
+
+      cart.forEach((item) => {
+        const line = `${item.name} x${item.quantity} - ₦${(item.price * item.quantity).toLocaleString()}`;
+        summary += line + "\n";
+        totalAmount += item.price * item.quantity;
+      });
+
+      if (cartItemsField) cartItemsField.value = summary.trim();
+      if (cartTotalField) cartTotalField.value = `₦${totalAmount.toLocaleString()}`;
+    } else {
+      if (cartItemsField) cartItemsField.value = "No items in cart";
+      if (cartTotalField) cartTotalField.value = "₦0";
+    }
+
+    // --- Auto-Clear Cart After Successful Submission ---
+    const form = document.querySelector("form");
+    if (form) {
+      form.addEventListener("submit", function () {
+        localStorage.removeItem("cart");
+      });
     }
 
     summaryCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
