@@ -308,6 +308,36 @@
       });
     }
 
+    // --- Redirect to custom Thank You page after Formspree submission ---
+const checkoutForm = document.querySelector("form");
+
+if (checkoutForm) {
+  checkoutForm.addEventListener("submit", function (event) {
+    event.preventDefault(); // prevent default Formspree redirect
+
+    const formData = new FormData(checkoutForm);
+
+    fetch(checkoutForm.action, {
+      method: "POST",
+      body: formData,
+      headers: { Accept: "application/json" },
+    })
+      .then((response) => {
+        if (response.ok) {
+          // Clear cart data
+          localStorage.removeItem("cart");
+
+          // Redirect to Thank You page
+          window.location.href ="thankyou.html";
+        } else {
+          alert("Oops! Something went wrong. Please try again.");
+        }
+      })
+      .catch(() => {
+        alert("Network error — please check your connection and try again.");
+      });
+  });
+  }
     summaryCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
     summaryTotal.textContent = total.toLocaleString();
   </script>
