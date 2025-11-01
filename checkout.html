@@ -166,20 +166,21 @@
       transform: translateY(-2px);
     }
 
-    @media (max-width: 768px) {
+       /* Responsive                     /* Responsive */
+     @media (max-width: 768px) {
       .nav-links {
-        display: none;
-        flex-direction: column;
-        background: #000;
         position: absolute;
         top: 60px;
-        left: 0;
-        width: 100%;
+        right: -100%;
+        background: rgba(0, 0, 0, 0.95);
+        flex-direction: column;
+        width: 200px;
         padding: 20px;
+        transition: right 0.3s ease;
       }
 
       .nav-links.active {
-        display: flex;
+        right: 0;
       }
 
       .hamburger {
