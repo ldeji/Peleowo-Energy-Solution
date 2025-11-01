@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact - Peleowo Energy</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
   <style>
     /* Base & Reset */
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -91,8 +93,68 @@
     .contact-container button:hover { background: #00cc77; transform: translateY(-2px); }
 
     /* --- Responsive --- */
-   @media (max-width: 768px) {
-      .nav-links {
+   /* Contact Info Section */
+.contact-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  margin: 80px auto;
+  padding: 20px;
+  max-width: 1100px;
+  text-align: center;
+}
+
+.info-card {
+  background: #0b0b0b;
+  color: #fff;
+  padding: 30px 25px;
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0, 255, 153, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(0, 255, 153, 0.2);
+}
+
+.info-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 25px rgba(0, 255, 153, 0.35);
+}
+
+.info-card i {
+  font-size: 2rem;
+  color: #00ff99;
+  margin-bottom: 10px;
+}
+
+.info-card h3 {
+  color: #00aaff;
+  margin-bottom: 8px;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.info-card p {
+  font-size: 0.95rem;
+  color: #ccc;
+  line-height: 1.5;
+}
+
+.info-card iframe {
+  width: 100%;
+  height: 200px;
+  border: none;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+  .contact-info {
+    margin: 50px 15px;
+  }
+  .info-card {
+    padding: 25px;
+  }
+  .nav-links {
         position: absolute;
         top: 60px;
         right: -100%;
@@ -100,17 +162,15 @@
         flex-direction: column;
         width: 200px;
         padding: 20px;
-        transition: right 0.3s ease;
-      }
+        transition: right 0.3s ease;    }
 
       .nav-links.active {
-        right: 0;
-      }
+        right: 0;}
 
       .hamburger {
-        display: flex;
-      }
-    }
+        display: flex;}
+ }
+
   </style>
 </head>
 <body>
@@ -137,6 +197,36 @@
   <section class="contact-hero">
     <h1>Contact Us</h1>
   </section>
+   
+ <!--  Contact Info Section -->
+<section class="contact-info">
+  <div class="info-card">
+    <i class="fas fa-map-marker-alt"></i>
+    <h3>Our Office</h3>
+    <p>Suite 95, Dolphin PLaza, corporation Drive, Dolphin Estate. Ikoyi Lagos, Nigeria</p>
+    <iframe
+      src="https://www.google.com/maps?q=Dolphin Plaza+Dolphin Estate+Ikoyi,+Lagos,+Nigeria&output=embed"
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      allowfullscreen=""
+    ></iframe>
+  </div>
+
+  <div class="info-card">
+    <i class="fas fa-phone-alt"></i>
+    <h3>Call Us</h3>
+    <p>+234 8096528487</p>
+    <p>+234 8057080703</p>
+    <p>+234 708 045 0190</p>
+  </div>
+
+  <div class="info-card">
+    <i class="fas fa-envelope"></i>
+    <h3>Email</h3>
+    <p>peleowold@gmail.com</p>
+  </div>
+</section>
+
 
   <!-- Contact Form -->
   <section class="contact-container">
@@ -159,6 +249,54 @@
       navLinks.classList.toggle('active');
       hamburger.classList.toggle('open');
     });
+
+    // --- Custom Thank You Message (Block Formspree default) ---
+document.addEventListener("DOMContentLoaded", () => {
+  const contactForm = document.querySelector("form[action*='formspree']");
+  if (!contactForm) return;
+
+  // Create a thank-you message element (hidden by default)
+  const messageBox = document.createElement("div");
+  messageBox.id = "custom-message";
+  messageBox.style.display = "none";
+  messageBox.style.marginTop = "20px";
+  messageBox.style.padding = "15px";
+  messageBox.style.borderRadius = "10px";
+  messageBox.style.background = "#00ff99";
+  messageBox.style.color = "#000";
+  messageBox.style.fontWeight = "600";
+  messageBox.style.textAlign = "center";
+  messageBox.innerText = "Thank you for reaching out 🌿 — your message has been sent successfully!";
+  contactForm.after(messageBox);
+
+  contactForm.addEventListener("submit", (e) => {
+    e.preventDefault(); // stop Formspree redirect
+
+    const formData = new FormData(contactForm);
+
+    fetch(contactForm.action, {
+      method: "POST",
+      body: formData,
+      headers: { Accept: "application/json" },
+    })
+      .then((response) => {
+        if (response.ok) {
+          contactForm.reset();
+          messageBox.style.display = "block";
+
+          // Optional: hide message after few seconds
+          setTimeout(() => {
+            messageBox.style.display = "none";
+          }, 6000);
+        } else {
+          alert("Oops! Something went wrong. Please try again.");
+        }
+      })
+      .catch(() => {
+        alert("Network error — please check your connection.");
+      });
+  });
+});
   </script>
 
 </body>

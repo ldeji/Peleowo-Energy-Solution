@@ -328,7 +328,7 @@ if (checkoutForm) {
           localStorage.removeItem("cart");
 
           // Redirect to Thank You page
-          window.location.href ="thankyou.html";
+          window.location.href = "thankyou.html";
         } else {
           alert("Oops! Something went wrong. Please try again.");
         }
@@ -337,7 +337,7 @@ if (checkoutForm) {
         alert("Network error — please check your connection and try again.");
       });
   });
-  }
+}
     summaryCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
     summaryTotal.textContent = total.toLocaleString();
   </script>
