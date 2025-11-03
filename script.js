@@ -96,3 +96,70 @@ document.addEventListener("DOMContentLoaded", () => {
   updateCart();
 });
 
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const video = document.getElementById('myVideo');
+    const playPauseButton = document.getElementById('playPauseButton');
+    const progressBar = document.getElementById('progressBar');
+    const currentTimeSpan = document.getElementById('currentTime');
+    const durationSpan = document.getElementById('duration');
+    const volumeBar = document.getElementById('volumeBar');
+
+    // Remove the autoplay and loop attributes from the video tag
+    // The video will now load but not play until the user clicks play
+
+    // Play/Pause functionality
+    playPauseButton.addEventListener('click', () => {
+        if (video.paused) {
+            video.play();
+            playPauseButton.textContent = 'Pause';
+        } else {
+            video.pause();
+            playPauseButton.textContent = 'Play';
+        }
+    });
+
+    // Update progress bar as video plays
+    video.addEventListener('timeupdate', () => {
+        const progress = (video.currentTime / video.duration) * 100;
+        progressBar.value = progress;
+        updateTime();
+    });
+
+    // Seek functionality when progress bar is clicked
+    progressBar.addEventListener('input', () => {
+        const seekTime = (progressBar.value / 100) * video.duration;
+        video.currentTime = seekTime;
+    });
+
+    // Update current time and total duration
+    video.addEventListener('loadedmetadata', () => {
+        durationSpan.textContent = formatTime(video.duration);
+        progressBar.max = 100; // Ensure max is 100 for percentage
+    });
+
+    function updateTime() {
+        currentTimeSpan.textContent = formatTime(video.currentTime);
+    }
+
+    function formatTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = Math.floor(seconds % 60);
+        return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+    }
+
+    // Volume control
+    volumeBar.addEventListener('input', () => {
+        video.volume = volumeBar.value;
+    });
+
+    // Initial state
+    playPauseButton.textContent = 'Play'; // Set initial button text
+
+    // Optional: Add a listener for when the video ends to reset the button
+    video.addEventListener('ended', () => {
+        playPauseButton.textContent = 'Play';
+        video.currentTime = 0; // Reset to the beginning
+        progressBar.value = 0; // Reset progress bar
+    });
+});

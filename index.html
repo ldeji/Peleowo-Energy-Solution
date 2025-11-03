@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Peleowo Energy</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
   <style>
     /* Reset & base */
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -95,6 +97,94 @@
     .intro h2 { color: #00aaff; font-size: 2rem; margin-bottom: 20px; }
     .intro p { color: #ddd; font-size: 1rem; max-width: 800px; margin: 0 auto; line-height: 1.6; }
    
+     /* Video Section */
+    .showcase {
+      background: #000;
+      color: #fff;
+      padding: 60px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .showcase-container {
+      max-width: 1200px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .showcase-text h2 {
+      color: #00ff99;
+      font-size: 2rem;
+      margin-bottom: 15px;
+    }
+
+    .showcase-text p {
+      color: #ccc;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+  .showcase-video {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 255, 153, 0.3);
+  }
+
+     .showcase-video video {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    display: block;
+  }
+        /* PLAY BACK CONTROLS STYLES */
+.controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    gap: 10px;
+}
+
+.controls button {
+    background-color: #555;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.controls button:hover {
+    background-color: #777;
+}
+
+.controls input[type="range"] {
+    flex-grow: 1;
+    -webkit-appearance: none;
+    background: #555;
+    height: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.controls input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #007bff;
+    cursor: pointer;
+}
+
+#volumeBar {
+    width: 80px; /* Adjust as needed */
+}
+
     /* ⚡ FOOTER SECTION */
 .footer {
   background: #0b0b0b;
@@ -222,6 +312,23 @@
   .social-icons a {
     margin-right: 10px;
   }
+
+  
+    @media (max-width: 768px) {
+      .showcase-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .showcase-text h2 {
+        font-size: 1.6rem;
+      }
+      .showcase-text p {
+        font-size: 1rem;
+      }
+      .showcase-video {
+        margin-top: 25px;
+      }
+    }
 }
   </style>
 </head>
@@ -262,7 +369,26 @@
     <p>At Peleowo Energy, we provide high-quality solar panels, electric vehicle chargers, hydrogen fuel cylinders, and modern turbines. Our mission is to make clean energy accessible and affordable while reducing your carbon footprint.</p>
   </section>
 
-  <!-- 🌿 FOOTER SECTION -->
+    <!-- Hydrogen Plant Video Showcase Section -->
+  <section class="showcase">
+    <div class="showcase-container">
+      <div class="showcase-text">
+        <h2>Hydrogen Energy in Motion</h2>
+        <p>Experience the future of clean power. Our hydrogen solutions fuel industries and innovation — efficiently, safely, and sustainably.</p>
+      </div>
+
+  <div class="showcase-video">
+    <video id="myVideo" src="./videos/Peleowo_Energy_Solution.mp4"></video>
+        <div class="controls">
+          <button id="playPauseButton">Play/Pause</button>
+          <input type="range" id="progressBar" value="0" min="0" max="100">
+          <span id="currentTime">0:00</span> / <span id="duration">0:00</span>
+          <input type="range" id="volumeBar" min="0" max="1" step="0.1" value="1">
+        </div>
+    </div>
+  </section>
+
+  <!-- FOOTER SECTION -->
 <footer class="footer">
   <div class="footer-container">
     <div class="footer-about">
@@ -311,8 +437,9 @@
     });
       // Dynamic Year for Footer
   document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
 
+  </script>
+  <script src="script.js"></script>
 </body>
 </html>
 
