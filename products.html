@@ -1,501 +1,842 @@
+code
+Html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Peleowo Energy | Products</title>
-
-  <!-- Font Awesome -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-  />
-
-  <style>
-    /* --- Reset --- */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: "Poppins", sans-serif;
-      background-color: #f8f9fa;
-      color: #333;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    /* --- Navbar --- */
-    .navbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background: rgba(0, 0, 0, 0.9);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      z-index: 1000;
-    }
-
-    .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #00ff99;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 1.5rem;
-    }
-
-    .nav-links a {
-      text-decoration: none;
-      color: #fff;
-      font-weight: 500;
-      transition: color 0.3s ease;
-    }
-
-    .nav-links a:hover {
-      color: #00ff99;
-    }
-
-    .cart-icon {
-      position: relative;
-      cursor: pointer;
-      margin-left: -1rem;
-    }
-
-    .cart-icon i {
-      font-size: 1.5rem;
-      color: #fff;
-      transition: transform 0.3s ease;
-    }
-
-    .cart-icon i:hover {
-      transform: scale(1.1);
-      color: #00ff99;
-    }
-
-    .cart-icon span {
-      position: absolute;
-      top: -6px;
-      right: -10px;
-      background: #ff4444;
-      color: #fff;
-      font-size: 12px;
-      font-weight: bold;
-      border-radius: 50%;
-      padding: 2px 6px;
-    }
-
-    /* Hamburger */
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-    }
-    .hamburger span {
-      height: 3px;
-      width: 25px;
-      background: #fff;
-      border-radius: 2px;
-      transition: 0.4s;
-    }
-    .hamburger.open span:nth-child(1) {
-      transform: rotate(45deg) translate(5px, 5px);
-    }
-    .hamburger.open span:nth-child(2) {
-      opacity: 0;
-    }
-    .hamburger.open span:nth-child(3) {
-      transform: rotate(-45deg) translate(5px, -5px);
-    }
-
-    /* --- Hero --- */
-    .hero {
-      margin-top: 80px;
-      background: url("hero-bg.jpg") center/cover no-repeat;
-      color: white;
-      text-align: center;
-      padding: 80px 20px;
-      background-color: #002b1f;
-    }
-
-    .hero h1 {
-      font-size: 2.5rem;
-      color: #00ff99;
-      margin-bottom: 10px;
-    }
-
-    .hero p {
-      font-size: 1rem;
-    }
-
-    /* --- Product Grid --- */
-    .products-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-      padding: 2rem;
-      margin-top: 40px;
-    }
-
-    .product-card {
-      background: white;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      transition: transform 1s ease, box-shadow 0.3s ease;
-    }
-
-    .product-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-    }
-
-    .product-card img {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-    }
-
-    .product-info {
-      padding: 1rem;
-      text-align: center;
-    }
-
-    .product-info h3 {
-      color: #222;
-      font-size: 1.2rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .product-info p {
-      color: #666;
-      margin-bottom: 1rem;
-    }
-
-    .product-info button {
-      background: #00ff99;
-      border: none;
-      padding: 10px 18px;
-      color: #000;
-      font-weight: bold;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: 0.3s ease;
-    }
-
-    .product-info button:hover {
-      background: #00cc77;
-    }
-
-    /* --- CART MODAL --- */
-    .cart-modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.7);
-      justify-content: center;
-      align-items: center;
-      z-index: 2000;
-    }
-
-    .cart-content {
-      background: #fff;
-      border-radius: 10px;
-      width: 90%;
-      max-width: 500px;
-      padding: 20px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-      text-align: center;
-      max-height: 80vh;
-      overflow-y: auto;
-    }
-
-    .cart-items {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-
-    .cart-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid #ddd;
-      padding-bottom: 10px;
-      gap: 10px;
-    }
-
-    .cart-item img {
-      width: 60px;
-      height: 60px;
-      border-radius: 6px;
-      object-fit: cover;
-    }
-
-    .cart-item-details {
-      flex: 1;
-      text-align: left;
-    }
-
-    .quantity-controls {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .quantity-controls button {
-      background: #00ff99;
-      border: none;
-      width: 25px;
-      height: 25px;
-      border-radius: 4px;
-      font-weight: bold;
-      cursor: pointer;
-      color: #000;
-    }
-
-    .cart-total {
-      margin-top: 20px;
-      font-weight: bold;
-      color: #002b1f;
-    }
-
-    .cart-buttons {
-      margin-top: 15px;
-      display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .cart-buttons button {
-      padding: 8px 15px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: 0.3s;
-    }
-
-    #clear-cart-btn { background: #ff4444; color: #fff; }
-    #close-cart { background: #ddd; }
-    .cart-buttons button:hover { opacity: 0.8; }
-
-    /* --- Responsive --- */
-    @media (max-width: 768px) {
-      .nav-links {
-        position: absolute;
-        top: 60px;
-        right: -100%;
-        background: rgba(0, 0, 0, 0.95);
-        flex-direction: column;
-        width: 200px;
-        padding: 20px;
-        transition: right 0.3s ease;
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Peleowo Energy | Products</title>
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <style>
+      /* --- Reset --- */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
       }
 
-      .nav-links.active {
-        right: 0;
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: #f8f9fa;
+        color: #333;
+        min-height: 100vh;
+        overflow-x: hidden;
       }
 
-      .hamburger {
+      /* --- Navbar --- */
+      .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.9);
         display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 2rem;
+        z-index: 1000;
       }
-    }
-  </style>
-</head>
-<body>
 
-  <!-- Navbar -->
-  <header class="navbar">
-    <div class="logo">⚡ Peleowo Energy</div>
-    <nav class="nav-links" id="navLinks">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-      <a href="checkout.html">Checkout</a>
-    </nav>
-    <div class="cart-icon" id="cart-icon">
-     <i class="fas fa-shopping-cart"></i>
-     <span id="nav-item-count">0</span>
-    </div>
+      .logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #00ff99;
+      }
 
-    <div class="hamburger" id="hamburger">
-      <span></span><span></span><span></span>
-    </div>
-  </header>
+      .nav-links {
+        display: flex;
+        gap: 1.5rem;
+      }
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <h1>Our Products</h1>
-    <p>Powering homes and businesses with sustainable energy solutions.</p>
-  </section>
+      .nav-links a {
+        text-decoration: none;
+        color: #fff;
+        font-weight: 500;
+        transition: color 0.3s ease;
+      }
 
-  <!-- Products Grid -->
-  <section class="products-container">
-    <div class="product-card">
-      <img src="./Image/solar-panel.jpg" alt="Solar Panel" />
-      <div class="product-info">
-        <h3>Solar Panel 200W</h3>
-        <p>₦50,000⭐⭐⭐⭐</p>
-        <button class="add-btn" data-name="Solar Panel 200W" data-price="50000" data-image="./Image/solar-panel.jpg">Add</button>
+      .nav-links a:hover {
+        color: #00ff99;
+      }
+
+      .cart-icon {
+        position: relative;
+        cursor: pointer;
+        margin-left: -1rem;
+      }
+
+      .cart-icon i {
+        font-size: 1.5rem;
+        color: #fff;
+        transition: transform 0.3s ease;
+      }
+
+      .cart-icon i:hover {
+        transform: scale(1.1);
+        color: #00ff99;
+      }
+
+      .cart-icon span {
+        position: absolute;
+        top: -6px;
+        right: -10px;
+        background: #ff4444;
+        color: #fff;
+        font-size: 12px;
+        font-weight: bold;
+        border-radius: 50%;
+        padding: 2px 6px;
+      }
+
+      /* Hamburger */
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+      }
+      .hamburger span {
+        height: 3px;
+        width: 25px;
+        background: #fff;
+        border-radius: 2px;
+        transition: 0.4s;
+      }
+      .hamburger.open span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+      .hamburger.open span:nth-child(2) {
+        opacity: 0;
+      }
+      .hamburger.open span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+      }
+
+      /* --- Hero --- */
+      .hero {
+        margin-top: 80px;
+        background: url("hero-bg.jpg") center/cover no-repeat;
+        color: white;
+        text-align: center;
+        padding: 80px 20px;
+        background-color: #002b1f;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+        color: #00ff99;
+        margin-bottom: 10px;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      /* --- Product Grid --- */
+      .products-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        padding: 2rem;
+        margin-top: 40px;
+      }
+
+      .product-card {
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 1s ease, box-shadow 0.3s ease;
+      }
+
+      .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      .product-card img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        cursor: pointer; /* Add cursor pointer to indicate clickability */
+      }
+
+      .product-info {
+        padding: 1rem;
+        text-align: center;
+      }
+
+      .product-info h3 {
+        color: #222;
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .product-info p {
+        color: #666;
+        margin-bottom: 1rem;
+      }
+
+      .product-info button {
+        background: #00ff99;
+        border: none;
+        padding: 10px 18px;
+        color: #000;
+        font-weight: bold;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: 0.3s ease;
+      }
+
+      .product-info button:hover {
+        background: #00cc77;
+      }
+
+      /* --- CART MODAL --- */
+      .cart-modal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.7);
+        justify-content: center;
+        align-items: center;
+        z-index: 2000;
+      }
+
+      .cart-content {
+        background: #fff;
+        border-radius: 10px;
+        width: 90%;
+        max-width: 500px;
+        padding: 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        max-height: 80vh;
+        overflow-y: auto;
+      }
+
+      .cart-items {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .cart-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 10px;
+        gap: 10px;
+      }
+
+      .cart-item img {
+        width: 60px;
+        height: 60px;
+        border-radius: 6px;
+        object-fit: cover;
+      }
+
+      .cart-item-details {
+        flex: 1;
+        text-align: left;
+      }
+
+      .quantity-controls {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .quantity-controls button {
+        background: #00ff99;
+        border: none;
+        width: 25px;
+        height: 25px;
+        border-radius: 4px;
+        font-weight: bold;
+        cursor: pointer;
+        color: #000;
+      }
+
+      .cart-total {
+        margin-top: 20px;
+        font-weight: bold;
+        color: #002b1f;
+      }
+
+      .cart-buttons {
+        margin-top: 15px;
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .cart-buttons button {
+        padding: 8px 15px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: 0.3s;
+      }
+
+      #clear-cart-btn {
+        background: #ff4444;
+        color: #fff;
+      }
+      #close-cart {
+        background: #ddd;
+      }
+      .cart-buttons button:hover {
+        opacity: 0.8;
+      }
+
+      /* --- Product Detail Modal --- */
+      .product-detail-modal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.8);
+        justify-content: center;
+        align-items: center;
+        z-index: 3000;
+        padding: 20px;
+      }
+
+      .product-detail-content {
+        background: #fff;
+        border-radius: 10px;
+        width: 95%;
+        max-width: 800px;
+        padding: 25px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        position: relative;
+        max-height: 90vh;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .product-detail-close {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        font-size: 1.8rem;
+        color: #555;
+        cursor: pointer;
+        transition: color 0.3s ease;
+      }
+
+      .product-detail-close:hover {
+        color: #ff4444;
+      }
+
+      .product-detail-image-gallery {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .product-detail-main-image {
+        width: 100%;
+        max-width: 400px; /* Limit main image size */
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .product-detail-thumbnails {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .product-detail-thumbnails img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 5px;
+        cursor: pointer;
+        border: 2px solid #eee;
+        transition: border-color 0.3s ease, transform 0.2s ease;
+      }
+
+      .product-detail-thumbnails img.active-thumbnail {
+        border-color: #00ff99;
+        transform: scale(1.05);
+      }
+
+      .product-detail-thumbnails img:hover {
+        border-color: #00ff99;
+      }
+
+      .product-detail-info {
+        text-align: center;
+      }
+
+      .product-detail-info h3 {
+        font-size: 2rem;
+        color: #002b1f;
+        margin-bottom: 10px;
+      }
+
+      .product-detail-info .price {
+        font-size: 1.5rem;
+        color: #00ff99;
+        font-weight: bold;
+        margin-bottom: 15px;
+      }
+
+      .product-detail-info .description {
+        font-size: 1rem;
+        color: #555;
+        line-height: 1.6;
+        text-align: left;
+        margin-bottom: 20px;
+      }
+
+      /* Flex layout for larger screens */
+      @media (min-width: 768px) {
+        .product-detail-content {
+          flex-direction: row;
+          align-items: flex-start;
+          gap: 40px;
+          padding: 30px;
+        }
+
+        .product-detail-image-gallery {
+          flex: 1;
+        }
+
+        .product-detail-info {
+          flex: 1;
+          text-align: left;
+        }
+
+        .product-detail-main-image {
+          max-width: none; /* Let it grow within its flex container */
+        }
+      }
+
+      /* --- Responsive --- */
+      @media (max-width: 768px) {
+        .nav-links {
+          position: absolute;
+          top: 60px;
+          right: -100%;
+          background: rgba(0, 0, 0, 0.95);
+          flex-direction: column;
+          width: 200px;
+          padding: 20px;
+          transition: right 0.3s ease;
+        }
+
+        .nav-links.active {
+          right: 0;
+        }
+
+        .hamburger {
+          display: flex;
+        }
+
+        .product-detail-content {
+          max-height: 95vh; /* Adjust for smaller screens */
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <header class="navbar">
+      <div class="logo">⚡ Peleowo Energy</div>
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="checkout.html">Checkout</a>
+      </nav>
+      <div class="cart-icon" id="cart-icon">
+        <i class="fas fa-shopping-cart"></i>
+        <span id="nav-item-count">0</span>
+      </div>
+      <div class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </header>
+    <!-- Hero Section -->
+    <section class="hero">
+      <h1>Our Products</h1>
+      <p>Powering homes and businesses with sustainable energy solutions.</p>
+    </section>
+    <!-- Products Grid -->
+    <section class="products-container">
+      <div class="product-card">
+        <img
+          src="./Image/solar-panel.jpg"
+          alt="Solar Panel"
+          data-product-name="Solar Panel 200W"
+          data-product-price="50000"
+          data-product-description="High-efficiency monocrystalline solar panel, 200W output, perfect for residential and commercial applications. Durable, weather-resistant, and easy to install.  Ideal for reducing electricity bills and achieving energy independence."
+          data-product-images='["./Image/solar-panel.jpg", "./Image/solar-panel-side.png", "./Image/solar-panel-installation.png"]'
+        />
+        <div class="product-info">
+          <h3>Solar Panel 200W</h3>
+          <p>₦50,000⭐⭐⭐⭐</p>
+          <button
+            class="add-btn"
+            data-name="Solar Panel 200W"
+            data-price="50000"
+            data-image="./Image/solar-panel.jpg"
+          >
+            Add
+          </button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img
+          src="./Image/Inverter 1.5kva.jpg"
+          alt="Inverter 1.5KVA"
+          data-product-name="Inverter 1.5KVA"
+          data-product-price="120000"
+          data-product-description="Reliable 1.5KVA pure sine wave inverter, suitable for homes and small offices. Provides stable power for sensitive electronics. Features overcharge protection and efficient power conversion."
+          data-product-images='["./Image/Inverter 1.5kva.jpg", "./Image/Inverter-side.png", "./Image/Inverter-back.png"]'
+        />
+        <div class="product-info">
+          <h3>Inverter 1.5KVA</h3>
+          <p>₦120,000⭐⭐⭐⭐</p>
+          <button
+            class="add-btn"
+            data-name="Inverter 1.5KVA"
+            data-price="120000"
+            data-image="./Image/Inverter 1.5kva.jpg"
+          >
+            Add
+          </button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img
+          src="./Image/Tubular Battery.png"
+          alt="Battery 220AH"
+          data-product-name="Tubular Battery 220AH"
+          data-product-price="300000"
+          data-product-description="High-capacity 220AH tubular battery, designed for long-lasting performance in solar and inverter systems. Excellent deep cycle capability and low maintenance. Provides reliable backup power."
+          data-product-images='["./Image/Tubular Battery.png", "./Image/tubular-battery-side.png", "./Image/tubular-battery-blue.png"]'
+        />
+        <div class="product-info">
+          <h3>Battery 220AH</h3>
+          <p>₦300,000⭐⭐⭐⭐</p>
+          <button
+            class="add-btn"
+            data-name="Battery 220AH"
+            data-price="300000"
+            data-image="./Image/Tubular Battery.png"
+          >
+            Add
+          </button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img
+          src="./Image/solar-street-light-in-nigeria.jpg"
+          alt="Solar Street Light"
+          data-product-name="Solar Street Light"
+          data-product-price="72000"
+          data-product-description="Integrated solar street light with automatic dusk-to-dawn operation. High brightness LED, robust construction, and zero electricity cost. Ideal for pathways, gardens, and public areas."
+          data-product-images='["./Image/solar-street-light-in-nigeria.jpg", "./Image/solar-street.part.png", "./Image/solar-street.night.png"]'
+        />
+        <div class="product-info">
+          <h3>Solar Street Light</h3>
+          <p>₦72,000⭐⭐⭐⭐</p>
+          <button
+            class="add-btn"
+            data-name="Solar Street Light"
+            data-price="72000"
+            data-image="./Image/solar-street-light-in-nigeria.jpg"
+          >
+            Add
+          </button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img
+          src="./Image/solar-charger.jpg"
+          alt="Solar Charger"
+          data-product-name="Solar Charger"
+          data-product-price="45000"
+          data-product-description="Portable solar charger for mobile devices and small electronics. Compact design, high conversion efficiency, and multiple charging ports. Perfect for outdoor activities and emergencies."
+          data-product-images='["./Image/solar-charger.jpg", "./Image/solar-charger.open.png", "./Image/solar-charger.device.png"]'
+        />
+        <div class="product-info">
+          <h3>Solar Charger</h3>
+          <p>₦45,000⭐⭐⭐⭐</p>
+          <button
+            class="add-btn"
+            data-name="Solar Charger"
+            data-price="45000"
+            data-image="./Image/solar-charger.jpg"
+          >
+            Add
+          </button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img
+          src="./Image/turbine.jpg"
+          alt="Turbine-Energy"
+          data-product-name="Wind Turbine Energy"
+          data-product-price="310000"
+          data-product-description="5000Watts compact home wind turbine for generating clean electricity. Low noise operation, durable blades, and easy integration with existing power systems. A great addition to a hybrid energy solution."
+          data-product-images='["./Image/turbine.jpg", "./Image/turbine-closeup.png", "./Image/turbine-sky.png"]'
+        />
+        <div class="product-info">
+          <h3>Turbine Energy</h3>
+          <p>₦310,000⭐⭐⭐⭐</p>
+          <button
+            class-product-name="Turbine Energy"
+            data-name="Turbine Energy"
+            data-price="310000"
+            data-image="./Image/turbine.jpg"
+          >
+            Add
+          </button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img
+          src="./Image/Robot Cleaner.png"
+          alt="Robot Cleaner"
+          data-product-name="Solar Panel Robot Cleaner"
+          data-product-price="25000"
+          data-product-description="Automated robot cleaner for solar panels. Maximizes panel efficiency by keeping them free of dust and debris. Programmable cleaning cycles and remote control operation."
+          data-product-images='["./Image/Robot Cleaner.png", "./Image/Robot Cleaner-top.png", "./Image/Robot Cleaner-on-panel.png"]'
+        />
+        <div class="product-info">
+          <h3>Robot Cleaner</h3>
+          <p>₦25,000⭐⭐⭐⭐</p>
+          <button
+            class="add-btn"
+            data-name="Robot Cleaner"
+            data-price="25000"
+            data-image="./Image/Robot Cleaner.png"
+          >
+            Add
+          </button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img
+          src="./Image/ev-charger.jpg"
+          alt="EV Charger"
+          data-product-name="EV Charger"
+          data-product-price="225000"
+          data-product-description="Fast and efficient electric vehicle charging station for home or commercial use. Universal compatibility with most EVs, smart charging features, and safety protections. Get charged up quicker."
+          data-product-images='["./Image/ev-charger.jpg", "./Image/ev-charger-car.jpg", "./Image/ev-charger-port.jpg"]'
+        />
+        <div class="product-info">
+          <h3>EV Charger</h3>
+          <p>₦225,000⭐⭐⭐⭐</p>
+          <button
+            class="add-btn"
+            data-name="EV Charger"
+            data-price="225000"
+            data-image="./Image/ev-charger.jpg"
+          >
+            Add
+          </button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img
+          src="./Image/E-Vehicle.png"
+          alt="E-Vehicle"
+          data-product-name="Electric Vehicle"
+          data-product-price="15000000"
+          data-product-description="Zero-emission electric vehicle with long range and rapid acceleration. Modern design, spacious interior, and advanced safety features. Experience the future of driving."
+          data-product-images='["./Image/E-Vehicle.png", "./Image/E-Vehicle-side.png", "./Image/E-Vehicle-interior.png"]'
+        />
+        <div class="product-info">
+          <h3>E-Vehicle</h3>
+          <p>₦15,000,000⭐⭐⭐⭐</p>
+          <button
+            class="add-btn"
+            data-name="E-Vehicle"
+            data-price="15000000"
+            data-image="./Image/E-Vehicle.png"
+          >
+            Add
+          </button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img
+          src="./Image/E-Motor-Bike.png"
+          alt="E-Bike"
+          data-product-name="Electric Motor Bike"
+          data-product-price="7000000"
+          data-product-description="High-performance electric motorbike with instant torque and a sleek design. Environmentally friendly, low running costs, and an exhilarating ride. Commute with style."
+          data-product-images='["./Image/E-Motor-Bike.png", "./Image/E-Motor-Bike-side.png", "./Image/E-Motor-Bike-charging.png"]'
+        />
+        <div class="product-info">
+          <h3>E-Motor Bike</h3>
+          <p>₦7,000,000⭐⭐⭐⭐</p>
+          <button
+            class="add-btn"
+            data-name="E-Motor-Bike"
+            data-price="7000000"
+            data-image="./Image/E-Motor-Bike.png"
+          >
+            Add
+          </button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img
+          src="./Image/Electric Skooter.png"
+          alt="E-Skooter"
+          data-product-name="Electric Scooter"
+          data-product-price="225000"
+          data-product-description="Foldable electric scooter, perfect for urban commuting. Lightweight, long battery life, and comfortable ride. A convenient and eco-friendly way to get around."
+          data-product-images='["./Image/Electric Skooter.png", "./Image/Electric Skooter-folded.png", "./Image/Electric Skooter-rider.png"]'
+        />
+        <div class="product-info">
+          <h3>Electric Skooter</h3>
+          <p>₦225,000⭐⭐⭐⭐⭐</p>
+          <button
+            class="add-btn"
+            data-name="E-Skooter"
+            data-price="225000"
+            data-image="./Image/E-Skooter.jpg"
+          >
+            Add
+          </button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img
+          src="./Image/hydrogen retails.jpg"
+          alt="Hydrogen Gas"
+          data-product-name="Hydrogen Fuel Cell"
+          data-product-price="90000"
+          data-product-description="Compact hydrogen fuel cell for experimental and educational purposes. Demonstrates clean energy generation from hydrogen. Safe and easy to operate."
+          data-product-images='["./Image/hydrogen retails.jpg", "./Image/hydrogen-tank.jpg", "./Image/hydrogen-application.jpg"]'
+        />
+        <div class="product-info">
+          <h3>Hydrogen Gas</h3>
+          <p>₦90,000⭐⭐⭐⭐⭐</p>
+          <button
+            class="add-btn"
+            data-name="Hydrogen Gas"
+            data-price="90000"
+            data-image="./Image/hydrogen retails.jpg"
+          >
+            Add
+          </button>
+        </div>
+      </div>
+    </section>
+    <!--CART OVERVIEW MODAL -->
+    <div id="cart-modal" class="cart-modal">
+      <div class="cart-content">
+        <h3>Your Cart (<span id="cart-modal-count">0</span> items)</h3>
+        <div id="cart-modal-items" class="cart-items"></div>
+        <p class="cart-total">Total: ₦<span id="cart-modal-total">0</span></p>
+        <div class="cart-buttons">
+          <button id="clear-cart-btn">Clear Cart</button>
+          <button onclick="window.location.href='checkout.html'">
+            Checkout
+          </button>
+          <button id="close-cart">Close</button>
+        </div>
       </div>
     </div>
 
-    <div class="product-card">
-      <img src="./Image/Inverter 1.5kva.jpg" alt="Inverter 1.5KVA" />
-      <div class="product-info">
-        <h3>Inverter 1.5KVA</h3>
-        <p>₦120,000⭐⭐⭐⭐</p>
-        <button class="add-btn" data-name="Inverter 1.5KVA" data-price="120000" data-image="./Image/Inverter 1.5kva.jpg">Add</button>
+    <!-- Product Detail Modal -->
+    <div id="product-detail-modal" class="product-detail-modal">
+      <div class="product-detail-content">
+        <span class="product-detail-close" id="product-detail-close"
+          >&times;</span
+        >
+        <div class="product-detail-image-gallery">
+          <img
+            id="product-detail-main-image"
+            src=""
+            alt="Product Image"
+            class="product-detail-main-image"
+          />
+          <div id="product-detail-thumbnails" class="product-detail-thumbnails">
+            <!-- Thumbnails will be injected here by JS -->
+          </div>
+        </div>
+        <div class="product-detail-info">
+          <h3 id="product-detail-name"></h3>
+          <p class="price">₦<span id="product-detail-price"></span></p>
+          <p id="product-detail-description" class="description"></p>
+          <button
+            class="add-btn"
+            id="product-detail-add-to-cart"
+            data-name=""
+            data-price=""
+            data-image=""
+          >
+            Add to Cart
+          </button>
+        </div>
       </div>
     </div>
 
-    <div class="product-card">
-      <img src="./Image/Tubular Battery.png" alt="Battery 220AH" />
-      <div class="product-info">
-        <h3>Battery 220AH</h3>
-        <p>₦300,000⭐⭐⭐⭐</p>
-        <button class="add-btn" data-name="Battery 220AH" data-price="300000" data-image="./Image/Tubular Battery.png">Add</button>
-      </div>
-    </div>
+    <script>
+      const hamburger = document.getElementById("hamburger");
+      const navLinks = document.getElementById("navLinks");
+      hamburger.addEventListener("click", () => {
+        navLinks.classList.toggle("active");
+        hamburger.classList.toggle("open");
+      });
 
-    <div class="product-card">
-      <img src="./Image/solar-street-light-in-nigeria.jpg" alt="Solar Street Light" />
-      <div class="product-info">
-        <h3>Solar Street Light</h3>
-        <p>₦72,000⭐⭐⭐⭐</p>
-        <button class="add-btn" data-name="Solar Street Light" data-price="72000" data-image="./Image/solar-street-light-in-nigeria.jpg">Add</button>
-      </div>
-    </div>
+      // === CART LOGIC ===
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-    <div class="product-card">
-      <img src="./Image/solar-charger.jpg" alt="Solar Charger" />
-      <div class="product-info">
-        <h3>Solar Charger</h3>
-        <p>₦45,000⭐⭐⭐⭐</p>
-        <button class="add-btn" data-name="Solar Charger" data-price="45000" data-image="./Image/solar-charger.jpg">Add</button>
-      </div>
-    </div>
+      const cartIcon = document.getElementById("cart-icon");
+      const cartModal = document.getElementById("cart-modal");
+      const cartModalItems = document.getElementById("cart-modal-items");
+      const cartModalCount = document.getElementById("cart-modal-count");
+      const cartModalTotal = document.getElementById("cart-modal-total");
+      const navItemCount = document.getElementById("nav-item-count");
 
-    <div class="product-card">
-      <img src="./Image/turbine.jpg" alt="Turbine-Energy" />
-      <div class="product-info">
-        <h3>Turbine Energy</h3>
-        <p>₦310,000⭐⭐⭐⭐</p>
-        <button class="add-btn" data-name="Turbine Energy" data-price="310000" data-image="./Image/turbine.jpg">Add</button>
-      </div>
-    </div>
+      function updateCartDisplay() {
+        localStorage.setItem("cart", JSON.stringify(cart));
 
-    <div class="product-card">
-      <img src="./Image/Robot Cleaner.png" alt="Robot Cleaner" />
-      <div class="product-info">
-        <h3>Robot Cleaner</h3>
-        <p>₦25,000⭐⭐⭐⭐</p>
-        <button class="add-btn" data-name="Robot Cleaner" data-price="25000" data-image="./Image/Robot Cleaner.png">Add</button>
-      </div>
-    </div>
+        let totalItems = 0;
+        let totalPrice = 0;
+        cartModalItems.innerHTML = "";
 
-    <div class="product-card">
-      <img src="./Image/ev-charger.jpg" alt="EV Charger" />
-      <div class="product-info">
-        <h3>EV Charger</h3>
-        <p>₦225,000⭐⭐⭐⭐</p>
-        <button class="add-btn" data-name="EV Charger" data-price="225000" data-image="./Image/ev-charger.jpg">Add</button>
-      </div>
-    </div>
+        cart.forEach((item, index) => {
+          totalItems += item.quantity;
+          totalPrice += item.price * item.quantity;
 
-     <div class="product-card">
-      <img src="./Image/E-Vehicle.png" alt="E-Vehicle" />
-      <div class="product-info">
-        <h3>E-Vehicle</h3>
-        <p>₦15,000,000⭐⭐⭐⭐</p>
-        <button class="add-btn" data-name="E-Vehicle" data-price="15000000" data-image="./Image/E-Vehicle.png">Add</button>
-      </div>
-    </div>
-
-     <div class="product-card">
-      <img src="./Image/E-Motor-Bike.png" alt="E-Bike" />
-      <div class="product-info">
-        <h3>E-Motor Bike</h3>
-        <p>₦7,000,000⭐⭐⭐⭐</p>
-        <button class="add-btn" data-name="E-Motor-Bike" data-price="7000000" data-image="./Image/E-Motor-Bike.png">Add</button>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <img src="./Image/Electric Skooter.png" alt="E-Skooter" />
-      <div class="product-info">
-        <h3>Electric Skooter</h3>
-        <p>₦225,000⭐⭐⭐⭐⭐</p>
-        <button class="add-btn" data-name="E-Skooter" data-price="225000" data-image="./Image/E-Skooter.jpg">Add</button>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <img src="./Image/hydrogen retails.jpg" alt="Hydrogen Gas" />
-      <div class="product-info">
-        <h3>Hydrogen Gas</h3>
-        <p>₦90,000⭐⭐⭐⭐⭐</p>
-        <button class="add-btn" data-name="Hydrogen Gas" data-price="90000" data-image="./Image/hydrogen retails.jpg">Add</button>
-      </div>
-    </div>
-  </section>
-
-  <!--CART OVERVIEW MODAL -->
-  <div id="cart-modal" class="cart-modal">
-    <div class="cart-content">
-      <h3>Your Cart (<span id="cart-modal-count">0</span> items)</h3>
-      <div id="cart-modal-items" class="cart-items"></div>
-      <p class="cart-total">Total: ₦<span id="cart-modal-total">0</span></p>
-      <div class="cart-buttons">
-        <button id="clear-cart-btn">Clear Cart</button>
-        <button onclick="window.location.href='checkout.html'">Checkout</button>
-        <button id="close-cart">Close</button>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    const hamburger = document.getElementById('hamburger');
-    const navLinks = document.getElementById('navLinks');
-    hamburger.addEventListener('click', () => {
-      navLinks.classList.toggle('active');
-      hamburger.classList.toggle('open');
-    });
-
-    // === CART LOGIC ===
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-    const cartIcon = document.getElementById('cart-icon');
-    const cartModal = document.getElementById('cart-modal');
-    const cartModalItems = document.getElementById('cart-modal-items');
-    const cartModalCount = document.getElementById('cart-modal-count');
-    const cartModalTotal = document.getElementById('cart-modal-total');
-    const navItemCount = document.getElementById('nav-item-count');
-
-    function updateCartDisplay() {
-      localStorage.setItem('cart', JSON.stringify(cart));
-
-      let totalItems = 0;
-      let totalPrice = 0;
-      cartModalItems.innerHTML = '';
-
-      cart.forEach((item, index) => {
-        totalItems += item.quantity;
-        totalPrice += item.price * item.quantity;
-
-        const div = document.createElement('div');
-        div.classList.add('cart-item');
-        div.innerHTML = `
+          const div = document.createElement("div");
+          div.classList.add("cart-item");
+          div.innerHTML = `
           <img src="${item.image}" alt="${item.name}">
           <div class="cart-item-details">
             <h4>${item.name}</h4>
@@ -507,55 +848,152 @@
             <button onclick="changeQuantity(${index}, 1)">+</button>
           </div>
         `;
-        cartModalItems.appendChild(div);
+          cartModalItems.appendChild(div);
+        });
+
+        cartModalCount.textContent = totalItems;
+        navItemCount.textContent = totalItems;
+        cartModalTotal.textContent = totalPrice.toLocaleString();
+      }
+
+      function changeQuantity(index, delta) {
+        cart[index].quantity += delta;
+        if (cart[index].quantity <= 0) {
+          cart.splice(index, 1);
+        }
+        updateCartDisplay();
+      }
+
+      document.querySelectorAll(".add-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const name = btn.getAttribute("data-name");
+          const price = parseFloat(btn.getAttribute("data-price"));
+          const image = btn.getAttribute("data-image");
+
+          const existing = cart.find((i) => i.name === name);
+          if (existing) {
+            existing.quantity += 1;
+          } else {
+            cart.push({ name, price, image, quantity: 1 });
+          }
+          updateCartDisplay();
+        });
       });
 
-      cartModalCount.textContent = totalItems;
-      navItemCount.textContent = totalItems;
-      cartModalTotal.textContent = totalPrice.toLocaleString();
-    }
+      cartIcon.addEventListener("click", () => {
+        cartModal.style.display = "flex";
+        updateCartDisplay();
+      });
 
-    function changeQuantity(index, delta) {
-      cart[index].quantity += delta;
-      if (cart[index].quantity <= 0) {
-        cart.splice(index, 1);
-      }
+      document.getElementById("close-cart").addEventListener("click", () => {
+        cartModal.style.display = "none";
+      });
+
+      document
+        .getElementById("clear-cart-btn")
+        .addEventListener("click", () => {
+          cart = [];
+          updateCartDisplay();
+        });
+
       updateCartDisplay();
-    }
 
-    document.querySelectorAll('.add-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const name = btn.getAttribute('data-name');
-        const price = parseFloat(btn.getAttribute('data-price'));
-        const image = btn.getAttribute('data-image');
+      // === PRODUCT DETAIL MODAL LOGIC ===
+      const productDetailModal = document.getElementById(
+        "product-detail-modal"
+      );
+      const productDetailClose = document.getElementById(
+        "product-detail-close"
+      );
+      const productDetailMainImage = document.getElementById(
+        "product-detail-main-image"
+      );
+      const productDetailThumbnails = document.getElementById(
+        "product-detail-thumbnails"
+      );
+      const productDetailName = document.getElementById("product-detail-name");
+      const productDetailPrice = document.getElementById(
+        "product-detail-price"
+      );
+      const productDetailDescription = document.getElementById(
+        "product-detail-description"
+      );
+      const productDetailAddToCartBtn = document.getElementById(
+        "product-detail-add-to-cart"
+      );
 
-        const existing = cart.find(i => i.name === name);
+      document.querySelectorAll(".product-card img").forEach((img) => {
+        img.addEventListener("click", () => {
+          const name = img.getAttribute("data-product-name");
+          const price = parseFloat(img.getAttribute("data-product-price"));
+          const description = img.getAttribute("data-product-description");
+          const images = JSON.parse(img.getAttribute("data-product-images")); // Parse the array of image paths
+
+          // Populate modal with product details
+          productDetailName.textContent = name;
+          productDetailPrice.textContent = price.toLocaleString();
+          productDetailDescription.textContent = description;
+          productDetailAddToCartBtn.setAttribute("data-name", name);
+          productDetailAddToCartBtn.setAttribute("data-price", price);
+          productDetailAddToCartBtn.setAttribute("data-image", images[0]); // Set default image for cart
+
+          // Clear previous thumbnails
+          productDetailThumbnails.innerHTML = "";
+
+          // Set main image and generate thumbnails
+          productDetailMainImage.src = images[0];
+          images.forEach((imgPath, index) => {
+            const thumb = document.createElement("img");
+            thumb.src = imgPath;
+            thumb.alt = `${name} - view ${index + 1}`;
+            thumb.classList.add("thumbnail");
+            if (index === 0) {
+              thumb.classList.add("active-thumbnail"); // Mark the first as active
+            }
+            thumb.addEventListener("click", () => {
+              productDetailMainImage.src = imgPath;
+              // Remove active class from all and add to clicked one
+              document
+                .querySelectorAll(".thumbnail")
+                .forEach((t) => t.classList.remove("active-thumbnail"));
+              thumb.classList.add("active-thumbnail");
+            });
+            productDetailThumbnails.appendChild(thumb);
+          });
+
+          // Show the modal
+          productDetailModal.style.display = "flex";
+        });
+      });
+
+      productDetailClose.addEventListener("click", () => {
+        productDetailModal.style.display = "none";
+      });
+
+      // Add to cart from product detail modal
+      productDetailAddToCartBtn.addEventListener("click", (event) => {
+        const name = event.target.getAttribute("data-name");
+        const price = parseFloat(event.target.getAttribute("data-price"));
+        const image = event.target.getAttribute("data-image");
+
+        const existing = cart.find((i) => i.name === name);
         if (existing) {
           existing.quantity += 1;
         } else {
           cart.push({ name, price, image, quantity: 1 });
         }
         updateCartDisplay();
+        productDetailModal.style.display = "none"; // Close modal after adding to cart
       });
-    });
 
-    cartIcon.addEventListener('click', () => {
-      cartModal.style.display = 'flex';
-      updateCartDisplay();
-    });
-
-    document.getElementById('close-cart').addEventListener('click', () => {
-      cartModal.style.display = 'none';
-    });
-
-    document.getElementById('clear-cart-btn').addEventListener('click', () => {
-      cart = [];
-      updateCartDisplay();
-    });
-
-    updateCartDisplay();
-  </script>
-</body>
+      // Close modal if clicked outside content
+      productDetailModal.addEventListener("click", (e) => {
+        if (e.target === productDetailModal) {
+          productDetailModal.style.display = "none";
+        }
+      });
+    </script>
+  </body>
 </html>
 
 

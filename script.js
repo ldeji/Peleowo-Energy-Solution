@@ -1,4 +1,4 @@
-// === Peleowo Energy Cart & Navbar Script ===
+// Peleowo Energy Cart & Navbar Script
 
 // Run everything after DOM is ready
 document.addEventListener("DOMContentLoaded", () => {
@@ -92,11 +92,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // --- Initialize Cart Display on Load ---
+  // Initialize Cart Display on Load 
   updateCart();
 });
 
-
+            // Setting for 3D Animation control buttons
   document.addEventListener('DOMContentLoaded', () => {
     const video = document.getElementById('myVideo');
     const playPauseButton = document.getElementById('playPauseButton');
