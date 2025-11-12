@@ -11,28 +11,134 @@
   <style>
     /* Reset & base */
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Poppins', sans-serif; color: #fff; background-color: #000; }
+    body { font-family: 'Poppins', sans-serif; transition: background-color 0.5s, color 0.5s; }
+
+    /* Day Mode */
+    body.day-mode {
+      color: #333;
+      background-color: #f4f7f6; /* Light background */
+    }
+    body.day-mode .navbar {
+      background: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    body.day-mode .navbar .logo { color: #00aaff; }
+    body.day-mode .navbar .nav-links a { color: #333; }
+    body.day-mode .navbar .nav-links a:hover { color: #00aaff; }
+    body.day-mode .hamburger span { background: #333; }
+    body.day-mode .nav-links.active { background: rgba(255, 255, 255, 0.95); }
+    body.day-mode .hero::before { background: rgba(255,255,255,0.3); }
+    body.day-mode .hero h1 { color: #00aaff; }
+    body.day-mode .hero p { color: #333; }
+    body.day-mode .intro { background: #e0e6e4; }
+    body.day-mode .intro h2 { color: #007bb5; }
+    body.day-mode .intro p { color: #555; }
+    body.day-mode .showcase { background: #f0f3f2; }
+    body.day-mode .showcase-text h2 { color: #007bb5; }
+    body.day-mode .showcase-text p { color: #444; }
+    body.day-mode .showcase-video { box-shadow: 0 8px 25px rgba(0, 123, 181, 0.2); }
+    body.day-mode .controls { background-color: #e0e0e0; color: #007bb5; }
+    body.day-mode .controls button { background-color: #ccc; color: #007bb5; }
+    body.day-mode .controls button:hover { background-color: #bbb; }
+    body.day-mode .controls input[type="range"] { background: #ccc; }
+    body.day-mode .controls input[type="range"]::-webkit-slider-thumb { background: #007bb5; }
+    body.day-mode .footer { background: #d0d5d4; border-top: 2px solid rgba(0, 123, 181, 0.2); }
+    body.day-mode .footer h3, body.day-mode .footer h4 { color: #007bb5; }
+    body.day-mode .footer-about p, body.day-mode .footer-contact p { color: #555; }
+    body.day-mode .footer-links a { color: #555; }
+    body.day-mode .footer-links a:hover { color: #007bb5; }
+    body.day-mode .footer-contact i { color: #007bb5; }
+    body.day-mode .social-icons a { color: #007bb5; }
+    body.day-mode .social-icons a:hover { color: #005a8d; }
+    body.day-mode .footer-bottom { border-top: 1px solid rgba(0, 0, 0, 0.1); color: #666; }
+
+    /* Night Mode (Default) */
+    body.night-mode {
+      color: #fff;
+      background-color: #000;
+    }
+    body.night-mode .navbar {
+      background: rgba(0,0,0,0.7);
+    }
+    body.night-mode .logo { font-size: 1.5rem; font-weight: 700; color: #00ff99; }
+    body.night-mode .nav-links a { color: #fff; text-decoration: none; font-weight: 500; transition: 0.3s; }
+    body.night-mode .nav-links a:hover { color: #00ff99; }
+    body.night-mode .hamburger span { background: #fff; }
+    body.night-mode .nav-links.active { background: rgba(0, 0, 0, 0.95); }
+    body.night-mode .hero::before { background: rgba(0,0,0,0.45); }
+    body.night-mode .hero h1 { color: #00ff99; }
+    body.night-mode .hero p { color: #fff; }
+    body.night-mode .intro { background: #111; }
+    body.night-mode .intro h2 { color: #00aaff; }
+    body.night-mode .intro p { color: #ddd; }
+    body.night-mode .showcase { background: #000; }
+    body.night-mode .showcase-text h2 { color: #00ff99; }
+    body.night-mode .showcase-text p { color: #ccc; }
+    body.night-mode .showcase-video { box-shadow: 0 8px 25px rgba(0, 255, 153, 0.3); }
+    body.night-mode .controls { background-color: #333; color: #00ff99; }
+    body.night-mode .controls button { background-color: #555; color: #00ff99; }
+    body.night-mode .controls button:hover { background-color: #777; }
+    body.night-mode .controls input[type="range"] { background: #555; }
+    body.night-mode .controls input[type="range"]::-webkit-slider-thumb { background: #00ff99; }
+    body.night-mode .footer { background: #0b0b0b; border-top: 2px solid rgba(0, 255, 153, 0.2); }
+    body.night-mode .footer h3, body.night-mode .footer h4 { color: #00ff99; }
+    body.night-mode .footer-about p, body.night-mode .footer-contact p { color: #ccc; }
+    body.night-mode .footer-links a { color: #ccc; }
+    body.night-mode .footer-links a:hover { color: #00ff99; }
+    body.night-mode .footer-contact i { color: #00ff99; }
+    body.night-mode .social-icons a { color: #00ff99; }
+    body.night-mode .social-icons a:hover { color: #00aaff; }
+    body.night-mode .footer-bottom { border-top: 1px solid rgba(255, 255, 255, 0.1); color: #888; }
 
     /* Navbar */
     .navbar {
       position: fixed;
       top: 0; left: 0;
       width: 100%;
-      background: rgba(0,0,0,0.7);
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 1rem 2rem;
       z-index: 1000;
+      transition: background 0.5s, box-shadow 0.5s;
     }
-    .logo { font-size: 1.5rem; font-weight: 700; color: #00ff99; }
+    .logo { font-size: 1.5rem; font-weight: 700; }
     .nav-links { display: flex; gap: 2rem; }
-    .nav-links a { color: #fff; text-decoration: none; font-weight: 500; transition: 0.3s; }
-    .nav-links a:hover { color: #00ff99; }
+    .nav-links a { text-decoration: none; font-weight: 500; transition: 0.3s; }
+
+    /* Day/Night Mode Toggle */
+    .mode-toggle {
+      background: none;
+      border: none;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+      margin-left: 1rem; /* Space from other nav links */
+      white-space: nowrap; /* Prevent text wrapping */
+    }
+    body.night-mode .mode-toggle {
+        background-color: #00ff99;
+        color: #000;
+    }
+    body.night-mode .mode-toggle:hover {
+        background-color: #00cc77;
+        color: #fff;
+    }
+    body.day-mode .mode-toggle {
+        background-color: #00aaff;
+        color: #fff;
+    }
+    body.day-mode .mode-toggle:hover {
+        background-color: #007bb5;
+        color: #fff;
+    }
 
     /* Hamburger */
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
-    .hamburger span { height: 3px; width: 25px; background: #fff; border-radius: 2px; transition: 0.4s; }
+    .hamburger span { height: 3px; width: 25px; border-radius: 2px; transition: 0.4s; }
     .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
     .hamburger.open span:nth-child(2) { opacity: 0; }
     .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
@@ -55,7 +161,6 @@
       position: absolute;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: rgba(0,0,0,0.45);
       z-index: 1;
     }
     .hero-content {
@@ -65,7 +170,7 @@
       max-width: 700px;
       padding: 20px;
     }
-    .hero h1 { font-size: 3rem; color: #00ff99; margin-bottom: 1rem; }
+    .hero h1 { font-size: 3rem; margin-bottom: 1rem; }
     .hero p { font-size: 1.2rem; margin-bottom: 1.5rem; }
     .button-group { display: flex; justify-content: center; gap: 15px; }
     .cta-btn {
@@ -93,15 +198,12 @@
     .intro {
       padding: 80px 20px;
       text-align: center;
-      background: #111;
     }
-    .intro h2 { color: #00aaff; font-size: 2rem; margin-bottom: 20px; }
-    .intro p { color: #ddd; font-size: 1rem; max-width: 800px; margin: 0 auto; line-height: 1.6; }
+    .intro h2 { font-size: 2rem; margin-bottom: 20px; }
+    .intro p { font-size: 1rem; max-width: 800px; margin: 0 auto; line-height: 1.6; }
    
      /* Video Section */
     .showcase {
-      background: #000;
-      color: #fff;
       padding: 60px 20px;
       display: flex;
       justify-content: center;
@@ -117,13 +219,11 @@
     }
 
     .showcase-text h2 {
-      color: #00ff99;
       font-size: 2rem;
       margin-bottom: 15px;
     }
 
     .showcase-text p {
-      color: #ccc;
       font-size: 1.1rem;
       line-height: 1.6;
     }
@@ -134,7 +234,6 @@
     max-width: 900px; /* Optional: set a max width for very large screens */
     margin: 0 auto;
     overflow: hidden;
-    box-shadow: 0 8px 25px rgba(0, 255, 153, 0.3);
   }
 
      .showcase-video video {
@@ -149,31 +248,25 @@
     justify-content: center;
     align-items: center;
     padding: 10px;
-    background-color: #333;
-    color: #00ff99;
     gap: 10px;
+    transition: background-color 0.5s, color 0.5s;
 }
 
 .controls button {
-    background-color: #555;
-    color: #00ff99;
     border: none;
     padding: 5px 11px;
     cursor: pointer;
     border-radius: 5px;
-}
-
-.controls button:hover {
-    background-color: #777;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .controls input[type="range"] {
     flex-grow: 1;
     -webkit-appearance: none;
-    background: #555;
     height: 5px;
     border-radius: 5px;
     cursor: pointer;
+    transition: background 0.5s;
 }
 
 .controls input[type="range"]::-webkit-slider-thumb {
@@ -181,13 +274,13 @@
     width: 15px;
     height: 15px;
     border-radius: 50%;
-    background: #00ff99;
     cursor: pointer;
+    transition: background 0.5s;
 }
 
 #volumeBar {
     width: 80px; /* Adjust as needed for default */
-    min-width: 60px; /*doesnt't go below 60px */
+    min-width: 60px; /*doesn't go below 60px */
 }
 /* Time display */
 #currentTime, #duration {
@@ -197,11 +290,9 @@
 
     /* ⚡ FOOTER SECTION */
 .footer {
-  background: #0b0b0b;
-  color: #fff;
   padding: 60px 20px 25px;
   margin-top: 80px;
-  border-top: 2px solid rgba(0, 255, 153, 0.2);
+  transition: background 0.5s, border-top 0.5s, color 0.5s;
 }
 
 .footer-container {
@@ -213,14 +304,14 @@
 }
 
 .footer h3, .footer h4 {
-  color: #00ff99;
   margin-bottom: 15px;
+  transition: color 0.5s;
 }
 
 .footer-about p {
-  color: #ccc;
   line-height: 1.6;
   font-size: 0.95rem;
+  transition: color 0.5s;
 }
 
 .footer-links ul {
@@ -233,25 +324,19 @@
 }
 
 .footer-links a {
-  color: #ccc;
   text-decoration: none;
   transition: 0.3s;
 }
 
-.footer-links a:hover {
-  color: #00ff99;
-  text-decoration: underline;
-}
-
 .footer-contact p {
   font-size: 0.95rem;
-  color: #ccc;
   margin-bottom: 10px;
+  transition: color 0.5s;
 }
 
 .footer-contact i {
-  color: #00ff99;
   margin-right: 8px;
+  transition: color 0.5s;
 }
 
 .social-icons {
@@ -260,36 +345,29 @@
 
 .social-icons a {
   display: inline-block;
-  color: #00ff99;
   font-size: 1.2rem;
   margin-right: 15px;
   transition: transform 0.3s ease, color 0.3s ease;
 }
 
-.social-icons a:hover {
-  color: #00aaff;
-  transform: translateY(-3px);
-}
-
 .footer-bottom {
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
   text-align: center;
   margin-top: 40px;
   padding-top: 20px;
   font-size: 0.9rem;
-  color: #888;
+  transition: border-top 0.5s, color 0.5s;
 }
     /* Responsive */
     @media (max-width: 768px) {
-       .nav-links {
+      .nav-links {
         position: absolute;
-        top: 60px;
+        top: 100%; /* Position below the navbar */
         right: -100%;
-        background: rgba(0, 0, 0, 0.95);
         flex-direction: column;
         width: 200px;
         padding: 20px;
-        transition: right 0.3s ease;
+        transition: right 0.3s ease, background 0.5s;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* Add shadow for depth */
       }
       .nav-links.active {
         right: 0;
@@ -401,7 +479,7 @@
 }
   </style>
 </head>
-<body>
+<body class="night-mode">
 
   <!-- Navbar -->
   <header class="navbar">
@@ -411,6 +489,7 @@
       <a href="./about.html">About</a>
       <a href="./contact.html">Contact</a>
       <a href="./products.html">Products</a>
+      <button id="modeToggle" class="mode-toggle">Day Mode</button>
     </nav>
 
     <!-- Hamburger -->
@@ -450,7 +529,8 @@
     <video id="myVideo" src="./videos/Peleowo_Energy_Solution.mp4"></video>
         <div class="controls">
           <button id="playPauseButton">Play/Pause</button>
-          <input type="range" id="progressBar" value="0" min="0" max="100">
+          <!-- Removed max="100" from here -->
+          <input type="range" id="progressBar" value="0" min="0"> 
           <span id="currentTime">0:00</span> / <span id="duration">0:00</span>
           <input type="range" id="volumeBar" min="0" max="1" step="0.1" value="1">
         </div>
@@ -502,11 +582,93 @@
       navLinks.classList.toggle('active');
       hamburger.classList.toggle('open');
     });
-      // Dynamic Year for Footer
-  document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Dynamic Year for Footer
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Day/Night Mode Toggle
+    const modeToggle = document.getElementById('modeToggle');
+    const body = document.body;
+
+    // Check for saved mode preference
+    const savedMode = localStorage.getItem('theme');
+    if (savedMode) {
+        body.className = savedMode; // Set the class directly
+        modeToggle.textContent = savedMode === 'day-mode' ? 'Night Mode' : 'Day Mode';
+    } else {
+        // Default to night mode if no preference is saved
+        body.classList.add('night-mode');
+        modeToggle.textContent = 'Day Mode';
+    }
+
+    modeToggle.addEventListener('click', () => {
+        if (body.classList.contains('night-mode')) {
+            body.classList.replace('night-mode', 'day-mode');
+            modeToggle.textContent = 'Night Mode';
+            localStorage.setItem('theme', 'day-mode');
+        } else {
+            body.classList.replace('day-mode', 'night-mode');
+            modeToggle.textContent = 'Day Mode';
+            localStorage.setItem('theme', 'night-mode');
+        }
+    });
+
+    // Video Player Functionality (from script.js, moved here for single file delivery)
+    const myVideo = document.getElementById('myVideo');
+    const playPauseButton = document.getElementById('playPauseButton');
+    const progressBar = document.getElementById('progressBar');
+    const volumeBar = document.getElementById('volumeBar');
+    const currentTimeSpan = document.getElementById('currentTime');
+    const durationSpan = document.getElementById('duration');
+
+    // Play/Pause functionality
+    playPauseButton.addEventListener('click', () => {
+        if (myVideo.paused || myVideo.ended) {
+            myVideo.play();
+            playPauseButton.textContent = 'Pause';
+        } else {
+            myVideo.pause();
+            playPauseButton.textContent = 'Play';
+        }
+    });
+
+    // Update progress bar as video plays
+    myVideo.addEventListener('timeupdate', () => {
+        const value = (myVideo.currentTime / myVideo.duration) * 100;
+        progressBar.value = value;
+        updateTime();
+    });
+
+    // Seek video when progress bar is changed
+    progressBar.addEventListener('input', () => {
+        const time = (progressBar.value / 100) * myVideo.duration;
+        myVideo.currentTime = time;
+    });
+
+    // Set max for progress bar once video metadata is loaded
+    myVideo.addEventListener('loadedmetadata', () => {
+        progressBar.max = 100; // Set max after metadata is loaded
+        updateTime();
+    });
+
+    // Volume control
+    volumeBar.addEventListener('input', () => {
+        myVideo.volume = volumeBar.value;
+    });
+
+    // Function to format time
+    function formatTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+    }
+
+    // Function to update current and duration time displays
+    function updateTime() {
+        currentTimeSpan.textContent = formatTime(myVideo.currentTime);
+        durationSpan.textContent = formatTime(myVideo.duration);
+    }
 
   </script>
-  <script src="script.js"></script>
 </body>
 </html>
-

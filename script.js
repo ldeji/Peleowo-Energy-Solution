@@ -95,9 +95,54 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initialize Cart Display on Load 
   updateCart();
 });
+// Setting for 3D Animation control buttons
+document.addEventListener('DOMContentLoaded', () => {
+    // Hamburger toggle (assuming you want this in script.js)
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    if (hamburger && navLinks) { // Check if elements exist
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('open');
+        });
+    }
 
-            // Setting for 3D Animation control buttons
-  document.addEventListener('DOMContentLoaded', () => {
+    // Dynamic Year for Footer (assuming you want this in script.js)
+    const yearSpan = document.getElementById("year");
+    if (yearSpan) {
+        yearSpan.textContent = new Date().getFullYear();
+    }
+
+    // Day/Night Mode Toggle (assuming you want this in script.js)
+    const modeToggle = document.getElementById('modeToggle');
+    const body = document.body;
+    if (modeToggle && body) {
+        // Check for saved mode preference
+        const savedMode = localStorage.getItem('theme');
+        if (savedMode) {
+            body.className = savedMode;
+            modeToggle.textContent = savedMode === 'day-mode' ? 'Night Mode' : 'Day Mode';
+        } else {
+            // Default to night mode if no preference is saved
+            body.classList.add('night-mode');
+            modeToggle.textContent = 'Day Mode';
+        }
+
+        modeToggle.addEventListener('click', () => {
+            if (body.classList.contains('night-mode')) {
+                body.classList.replace('night-mode', 'day-mode');
+                modeToggle.textContent = 'Night Mode';
+                localStorage.setItem('theme', 'day-mode');
+            } else {
+                body.classList.replace('day-mode', 'night-mode');
+                modeToggle.textContent = 'Day Mode';
+                localStorage.setItem('theme', 'night-mode');
+            }
+        });
+    }
+
+
+    // Video Player Controls
     const video = document.getElementById('myVideo');
     const playPauseButton = document.getElementById('playPauseButton');
     const progressBar = document.getElementById('progressBar');
@@ -105,61 +150,59 @@ document.addEventListener("DOMContentLoaded", () => {
     const durationSpan = document.getElementById('duration');
     const volumeBar = document.getElementById('volumeBar');
 
-    // Remove the autoplay and loop attributes from the video tag
-    // The video will now load but not play until the user clicks play
+    // Only proceed if all video elements are found
+    if (video && playPauseButton && progressBar && currentTimeSpan && durationSpan && volumeBar) {
 
-    // Play/Pause functionality
-    playPauseButton.addEventListener('click', () => {
-        if (video.paused) {
-            video.play();
-            playPauseButton.textContent = 'Pause';
-        } else {
-            video.pause();
-            playPauseButton.textContent = 'Play';
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
         }
-    });
 
-    // Update progress bar as video plays
-    video.addEventListener('timeupdate', () => {
-        const progress = (video.currentTime / video.duration) * 100;
-        progressBar.value = progress;
-        updateTime();
-    });
+        playPauseButton.addEventListener('click', () => {
+            if (video.paused || video.ended) {
+                video.play();
+                playPauseButton.textContent = 'Pause';
+            } else {
+                video.pause();
+                playPauseButton.textContent = 'Play';
+            }
+        });
 
-    // Seek functionality when progress bar is clicked
-    progressBar.addEventListener('input', () => {
-        const seekTime = (progressBar.value / 100) * video.duration;
-        video.currentTime = seekTime;
-    });
+        video.addEventListener('timeupdate', () => {
+            // Update progress bar value directly with currentTime if max is duration
+            progressBar.value = video.currentTime;
+            currentTimeSpan.textContent = formatTime(video.currentTime);
+        });
 
-    // Update current time and total duration
-    video.addEventListener('loadedmetadata', () => {
-        durationSpan.textContent = formatTime(video.duration);
-        progressBar.max = 100; // Ensure max is 100 for percentage
-    });
+        video.addEventListener('loadedmetadata', () => {
+            durationSpan.textContent = formatTime(video.duration);
+            progressBar.max = video.duration; // Set max for progress bar to video duration
+            // Also initialize current time and progress bar here in case video loads paused
+            progressBar.value = video.currentTime;
+            currentTimeSpan.textContent = formatTime(video.currentTime);
+            // Initialize volume bar value
+            volumeBar.value = video.volume;
+        });
 
-    function updateTime() {
-        currentTimeSpan.textContent = formatTime(video.currentTime);
-    }
+        progressBar.addEventListener('input', () => {
+            // Now you can directly set currentTime to progressBar.value
+            video.currentTime = progressBar.value;
+        });
+        
+        volumeBar.addEventListener('input', () => {
+            video.volume = volumeBar.value;
+        });
 
-    function formatTime(seconds) {
-        const minutes = Math.floor(seconds / 60);
-        const remainingSeconds = Math.floor(seconds % 60);
-        return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
-    }
-
-    // Volume control
-    volumeBar.addEventListener('input', () => {
-        video.volume = volumeBar.value;
-    });
-
-    // Initial state
-    playPauseButton.textContent = 'Play'; // Set initial button text
-
-    // Optional: Add a listener for when the video ends to reset the button
-    video.addEventListener('ended', () => {
+        // Initialize button text
         playPauseButton.textContent = 'Play';
-        video.currentTime = 0; // Reset to the beginning
-        progressBar.value = 0; // Reset progress bar
-    });
+
+        // Optional: Add a listener for when the video ends to reset the button
+        video.addEventListener('ended', () => {
+            playPauseButton.textContent = 'Play';
+            video.currentTime = 0; // Reset to the beginning
+            progressBar.value = 0; // Reset progress bar
+        });
+    }
 });
+

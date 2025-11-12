@@ -6,23 +6,109 @@
   <title>Contact - Peleowo Energy</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     /* Base & Reset */
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Poppins', sans-serif; color: #fff; background-color: #000; }
+    body { font-family: 'Poppins', sans-serif; transition: background-color 0.5s ease, color 0.5s ease; }
 
-    /* Navbar */
+    /* Day Mode */
+    body.day-mode {
+      color: #333;
+      background-color: #f0f2f5;
+    }
+    body.day-mode .navbar {
+      background: rgba(255,255,255,0.9);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    body.day-mode .logo {
+      color: #007bff;
+    }
+    body.day-mode .nav-links a {
+      color: #333;
+    }
+    body.day-mode .nav-links a:hover {
+      color: #007bff;
+    }
+    body.day-mode .hamburger span {
+      background: #333;
+    }
+    body.day-mode .contact-hero::before {
+      background: rgba(255,255,255,0.3);
+    }
+    body.day-mode .contact-hero h1 {
+      color: #007bff;
+    }
+    body.day-mode .contact-container {
+      background: #fff;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+    body.day-mode .contact-container h2 {
+      color: #007bff;
+    }
+    body.day-mode .contact-container input,
+    body.day-mode .contact-container textarea {
+      background-color: #f9f9f9;
+      color: #333;
+      border: 1px solid #ddd;
+    }
+    body.day-mode .contact-container button {
+      background: #007bff;
+      color: #fff;
+    }
+    body.day-mode .contact-container button:hover {
+      background: #0056b3;
+    }
+    body.day-mode .contact-info {
+      background: transparent;
+    }
+    body.day-mode .info-card {
+      background: #fff;
+      color: #333;
+      box-shadow: 0 6px 20px rgba(0, 123, 255, 0.1);
+      border: 1px solid rgba(0, 123, 255, 0.1);
+    }
+    body.day-mode .info-card:hover {
+      box-shadow: 0 8px 25px rgba(0, 123, 255, 0.2);
+    }
+    body.day-mode .info-card i {
+      color: #007bff;
+    }
+    body.day-mode .info-card h3 {
+      color: #0056b3;
+    }
+    body.day-mode .info-card p {
+      color: #555;
+    }
+    body.day-mode #mode-toggle {
+        background-color: #007bff;
+        color: #fff;
+    }
+    body.day-mode #mode-toggle i.fa-moon {
+        display: none;
+    }
+    body.day-mode #mode-toggle i.fa-sun {
+        display: inline-block;
+    }
+
+
+    /* Night Mode (Default) */
+    body {
+      color: #fff;
+      background-color: #1a1a2e;
+    }
     .navbar {
       position: fixed;
       top: 0; left: 0;
       width: 100%;
-      background: rgba(0,0,0,0.7);
+      background: rgba(26,26,46,0.9);
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 1rem 2rem;
       z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
     }
     .logo { font-size: 1.5rem; font-weight: 700; color: #00ff99; }
     .nav-links { display: flex; gap: 2rem; }
@@ -39,7 +125,7 @@
     /* Contact Hero */
     .contact-hero {
       height: 40vh;
-      background: url('./Image/contact-bg.jpg') center/cover no-repeat;
+      background: url('https://via.placeholder.com/1500x400/0d1117/00ff99?text=Contact+Us') center/cover no-repeat; /* Updated placeholder */
       display: flex;
       justify-content: center;
       align-items: center;
@@ -51,133 +137,210 @@
       position: absolute;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: rgba(0,0,0,0.5);
+      background: rgba(0,0,0,0.6);
     }
     .contact-hero h1 {
       position: relative;
       z-index: 1;
-      font-size: 2.5rem;
+      font-size: 2.8rem;
       color: #00ff99;
+      text-shadow: 0 0 10px rgba(0,255,153,0.5);
     }
 
     /* Contact Form */
     .contact-container {
       max-width: 600px;
       margin: 50px auto;
-      background: #111;
+      background: #0d1117;
       padding: 30px;
       border-radius: 10px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.6);
     }
-    .contact-container h2 { color: #00aaff; text-align: center; margin-bottom: 20px; }
+    .contact-container h2 { color: #00aaff; text-align: center; margin-bottom: 25px; font-size: 2rem; }
     .contact-container form { display: flex; flex-direction: column; gap: 15px; }
     .contact-container input,
     .contact-container textarea {
-      padding: 10px 15px;
+      padding: 12px 18px;
       border-radius: 8px;
-      border: none;
+      border: 1px solid #333;
+      background-color: #161b22;
+      color: #eee;
       font-size: 1rem;
       width: 100%;
       outline: none;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .contact-container input:focus,
+    .contact-container textarea:focus {
+      border-color: #00ff99;
+      box-shadow: 0 0 8px rgba(0,255,153,0.4);
     }
     .contact-container button {
       background: #00ff99;
+      color: #0d1117;
       border: none;
-      padding: 12px 0;
-      font-size: 1rem;
+      padding: 14px 0;
+      font-size: 1.1rem;
       font-weight: 600;
       border-radius: 25px;
       cursor: pointer;
       transition: 0.3s ease;
+      letter-spacing: 0.5px;
     }
-    .contact-container button:hover { background: #00cc77; transform: translateY(-2px); }
+    .contact-container button:hover { background: #00cc77; transform: translateY(-3px); box-shadow: 0 6px 15px rgba(0,255,153,0.3); }
+
+    /* Contact Info Section */
+    .contact-info {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin: 80px auto;
+      padding: 20px;
+      max-width: 1100px;
+      text-align: center;
+    }
+
+    .info-card {
+      background: #0d1117;
+      color: #fff;
+      padding: 30px 25px;
+      border-radius: 15px;
+      box-shadow: 0 6px 20px rgba(0, 255, 153, 0.15);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+      border: 1px solid rgba(0, 255, 153, 0.2);
+    }
+
+    .info-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 30px rgba(0, 255, 153, 0.4);
+    }
+
+    .info-card i {
+      font-size: 2.2rem;
+      color: #00ff99;
+      margin-bottom: 15px;
+      transition: color 0.3s ease;
+    }
+
+    .info-card h3 {
+      color: #00aaff;
+      margin-bottom: 10px;
+      font-size: 1.3rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .info-card p {
+      font-size: 1rem;
+      color: #bbb;
+      line-height: 1.6;
+    }
+
+    .info-card iframe {
+      width: 100%;
+      height: 200px;
+      border: none;
+      border-radius: 10px;
+      margin-top: 20px;
+      filter: grayscale(80%) invert(10%) contrast(110%); /* Map style for night mode */
+      transition: filter 0.5s ease;
+    }
+    body.day-mode .info-card iframe {
+        filter: grayscale(0%) invert(0%) contrast(100%); /* Normal map style for day mode */
+    }
+
+    /* Mode Toggle Button */
+    #mode-toggle {
+        background-color: #00ff99;
+        color: #1a1a2e;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    #mode-toggle:hover {
+        opacity: 0.9;
+    }
+    #mode-toggle i {
+        font-size: 1.2rem;
+    }
+    #mode-toggle i.fa-sun {
+        display: none; /* Hide sun icon in night mode by default */
+    }
 
     /* --- Responsive --- */
-   /* Contact Info Section */
-.contact-info {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 30px;
-  margin: 80px auto;
-  padding: 20px;
-  max-width: 1100px;
-  text-align: center;
-}
-
-.info-card {
-  background: #0b0b0b;
-  color: #fff;
-  padding: 30px 25px;
-  border-radius: 15px;
-  box-shadow: 0 6px 20px rgba(0, 255, 153, 0.15);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border: 1px solid rgba(0, 255, 153, 0.2);
-}
-
-.info-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 8px 25px rgba(0, 255, 153, 0.35);
-}
-
-.info-card i {
-  font-size: 2rem;
-  color: #00ff99;
-  margin-bottom: 10px;
-}
-
-.info-card h3 {
-  color: #00aaff;
-  margin-bottom: 8px;
-  font-size: 1.2rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.info-card p {
-  font-size: 0.95rem;
-  color: #ccc;
-  line-height: 1.5;
-}
-
-.info-card iframe {
-  width: 100%;
-  height: 200px;
-  border: none;
-  border-radius: 10px;
-  margin-top: 10px;
-}
-
-@media (max-width: 768px) {
-  .contact-info {
-    margin: 50px 15px;
-  }
-  .info-card {
-    padding: 25px;
-  }
-  .nav-links {
-        position: absolute;
-        top: 60px;
+    @media (max-width: 768px) {
+      .contact-hero h1 {
+        font-size: 2rem;
+      }
+      .contact-info {
+        margin: 50px 15px;
+      }
+      .info-card {
+        padding: 25px;
+      }
+      .navbar {
+          padding: 1rem 1.5rem;
+      }
+      .nav-links {
+        position: fixed; /* Changed to fixed for better mobile menu */
+        top: 0;
         right: -100%;
-        background: rgba(0, 0, 0, 0.95);
+        height: 100vh;
+        background: rgba(26, 26, 46, 0.98);
         flex-direction: column;
-        width: 200px;
-        padding: 20px;
-        transition: right 0.3s ease;    }
-
+        width: 70%;
+        max-width: 300px;
+        padding: 80px 20px 20px; /* Adjust padding for fixed header */
+        transition: right 0.4s ease;
+        justify-content: flex-start;
+        align-items: flex-start;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+      }
+      body.day-mode .nav-links {
+          background: rgba(255, 255, 255, 0.98);
+          box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+      }
+      .nav-links a {
+          width: 100%;
+          padding: 10px 0;
+          border-bottom: 1px solid rgba(255,255,255,0.1);
+          text-align: left;
+      }
+      body.day-mode .nav-links a {
+          border-bottom: 1px solid rgba(0,0,0,0.1);
+      }
       .nav-links.active {
-        right: 0;}
-
+        right: 0;
+      }
       .hamburger {
-        display: flex;}
- }
+        display: flex;
+        position: relative; /* Position hamburger correctly */
+        z-index: 1001; /* Ensure hamburger is above nav-links */
+      }
+      #mode-toggle {
+          margin-left: auto; /* Push toggle to the right */
+          margin-right: 1rem; /* Space from hamburger */
+          order: 1; /* Place it before logo if needed */
+      }
+    }
 
   </style>
 </head>
-<body>
+<body class="night-mode">
 
   <!-- Navbar -->
   <header class="navbar">
     <div class="logo">⚡ Peleowo Energy</div>
+    <button id="mode-toggle">
+        <i class="fas fa-moon"></i>
+        <i class="fas fa-sun"></i>
+    </button>
     <nav class="nav-links" id="navLinks">
       <a href="./index.html">Home</a>
       <a href="./about.html">About</a>
@@ -197,7 +360,7 @@
   <section class="contact-hero">
     <h1>Contact Us</h1>
   </section>
-   
+
  <!--  Contact Info Section -->
 <section class="contact-info">
   <div class="info-card">
@@ -245,9 +408,53 @@
     // Hamburger toggle
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('navLinks');
+    const body = document.body;
+    const modeToggle = document.getElementById('mode-toggle');
+
     hamburger.addEventListener('click', () => {
       navLinks.classList.toggle('active');
       hamburger.classList.toggle('open');
+      // Prevent scrolling when mobile nav is open
+      if (navLinks.classList.contains('active')) {
+          body.style.overflow = 'hidden';
+      } else {
+          body.style.overflow = '';
+      }
+    });
+
+    // Close mobile nav when a link is clicked
+    navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+            hamburger.classList.remove('open');
+            body.style.overflow = '';
+        });
+    });
+
+    // Mode Toggle Functionality
+    modeToggle.addEventListener('click', () => {
+        body.classList.toggle('day-mode');
+        body.classList.toggle('night-mode');
+
+        // Save preference to localStorage
+        if (body.classList.contains('day-mode')) {
+            localStorage.setItem('theme', 'day');
+        } else {
+            localStorage.setItem('theme', 'night');
+        }
+    });
+
+    // Check for saved theme preference on load
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'day') {
+            body.classList.add('day-mode');
+            body.classList.remove('night-mode');
+        } else {
+            // Default to night mode if no preference or 'night' is saved
+            body.classList.add('night-mode');
+            body.classList.remove('day-mode');
+        }
     });
 
     // --- Custom Thank You Message (Block Formspree default) ---
@@ -262,8 +469,8 @@ document.addEventListener("DOMContentLoaded", () => {
   messageBox.style.marginTop = "20px";
   messageBox.style.padding = "15px";
   messageBox.style.borderRadius = "10px";
-  messageBox.style.background = "#00ff99";
-  messageBox.style.color = "#000";
+  messageBox.style.background = "#00ff99"; /* Adjusted for potential day mode contrast */
+  messageBox.style.color = "#1a1a2e"; /* Adjusted for potential day mode contrast */
   messageBox.style.fontWeight = "600";
   messageBox.style.textAlign = "center";
   messageBox.innerText = "Thank you for reaching out — your message has been sent successfully!";

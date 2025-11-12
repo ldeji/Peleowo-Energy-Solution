@@ -1,3 +1,6 @@
+
+code
+Html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,9 +11,59 @@
   <style>
     /* Base & Reset */
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Poppins', sans-serif; color: #fff; background-color: #000; }
+    body { font-family: 'Poppins', sans-serif; transition: background-color 0.3s, color 0.3s; }
 
-    /* Navbar */
+    /* Day Mode */
+    body.day-mode {
+      color: #333;
+      background-color: #f0f2f5;
+    }
+    body.day-mode .navbar {
+      background: rgba(255,255,255,0.8);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    body.day-mode .logo {
+      color: #007bff;
+    }
+    body.day-mode .nav-links a {
+      color: #333;
+    }
+    body.day-mode .nav-links a:hover {
+      color: #007bff;
+    }
+    body.day-mode .hamburger span {
+      background: #333;
+    }
+    body.day-mode .about-hero::before {
+      background: rgba(255,255,255,0.4);
+    }
+    body.day-mode .about-hero h1 {
+      color: #007bff;
+    }
+    body.day-mode .about-content {
+      color: #333;
+    }
+    body.day-mode .about-content p {
+      color: #555;
+    }
+    body.day-mode .about-content img {
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    body.day-mode .mode-toggle {
+        background-color: #f0f2f5;
+        color: #333;
+        border: 1px solid #ccc;
+    }
+    body.day-mode .mode-toggle:hover {
+        background-color: #e0e2e5;
+    }
+
+
+    /* Night Mode (Default) */
+    body {
+      color: #fff;
+      background-color: #000;
+    }
     .navbar {
       position: fixed;
       top: 0; left: 0;
@@ -34,6 +87,24 @@
     .hamburger.open span:nth-child(2) { opacity: 0; }
     .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
+    /* Mode Toggle Button */
+    .mode-toggle {
+      background-color: #222;
+      color: #00ff99;
+      border: 1px solid #00ff99;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+      margin-left: 1rem;
+    }
+    .mode-toggle:hover {
+      background-color: #00ff99;
+      color: #000;
+    }
+
+
     /* About Section */
     .about-hero {
       height: 50vh;
@@ -50,13 +121,15 @@
       top: 0; left: 0;
       width: 100%; height: 100%;
       background: rgba(0,0,0,0.5);
+      transition: background 0.3s;
     }
     .about-hero h1 {
       position: relative;
       z-index: 1;
       font-size: 2.5rem;
       color: #00ff99;
-       margin-bottom: 0.5rem; 
+       margin-bottom: 0.5rem;
+       transition: color 0.3s;
     }
 
    .about-content {
@@ -66,8 +139,9 @@
       color: #fff;
       text-align: justify;
       line-height: 1.6;
+      transition: color 0.3s;
    }
- 
+
    .about-content p {
   margin-top: -0.5rem;  /* reduced top margin */
   margin-bottom: 1rem;
@@ -75,6 +149,7 @@
   color: #ddd;
   font-size: 1.1rem;
   text-align: justify;
+  transition: color 0.3s;
 }
   .about-content img {
   display: block;
@@ -83,11 +158,11 @@
   margin: 30px auto;
   border-radius: 10px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.4);
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s;
 }
 
 .about-content img:hover {
-  transform: scale(1.3);
+  transform: scale(1.03); /* Slightly reduced hover scale */
 }
 
     /* Responsive */
@@ -102,6 +177,9 @@
         padding: 20px;
         transition: right 0.3s ease;
       }
+      body.day-mode .nav-links {
+        background: rgba(255, 255, 255, 0.95);
+      }
 
       .nav-links.active {
         right: 0;
@@ -110,10 +188,13 @@
       .hamburger {
         display: flex;
       }
+      .mode-toggle {
+        margin-left: 0; /* Adjust for mobile */
+      }
     }
   </style>
 </head>
-<body>
+<body class="night-mode">
 
   <!-- Navbar -->
   <header class="navbar">
@@ -123,9 +204,10 @@
       <a href="./about.html">About</a>
       <a href="./contact.html">Contact</a>
       <a href="./products.html">Products</a>
+       <button class="mode-toggle" id="modeToggle">Day Mode</button>
     </nav>
 
-  
+
     <!-- Hamburger -->
     <div class="hamburger" id="hamburger">
       <span></span>
@@ -142,14 +224,14 @@
   <!-- About Content -->
   <section class="about-content">
     <p>
-      Peleowo Energy is committed to providing clean, sustainable, and efficient energy solutions for homes and businesses. 
-      From high-efficiency solar panels to electric vehicle chargers and hydrogen fuel cylinders, our products are designed 
+      Peleowo Energy is committed to providing clean, sustainable, and efficient energy solutions for homes and businesses.
+      From high-efficiency solar panels to electric vehicle chargers and hydrogen fuel cylinders, our products are designed
       to reduce your carbon footprint while saving on energy costs.
     </p><br><br>
     <img src="./Image/Renewable Energy Sources2.jpg" alt="all renewable."><br><br>
     <p>
-      Our team of experts ensures that every solution is customized for your needs. Whether you're looking to transition to 
-      renewable energy or enhance your current systems, Peleowo Energy offers the technology, support, and service to make 
+      Our team of experts ensures that every solution is customized for your needs. Whether you're looking to transition to
+      renewable energy or enhance your current systems, Peleowo Energy offers the technology, support, and service to make
       it seamless and affordable.
     </p><br><br>
     <p>
@@ -160,6 +242,7 @@
     <p>
       Join us in powering the future sustainably. Explore our products and services to find the perfect solution for you.
     </p>
+    <img src="./Image/Renewable energy factory.png" alt="wf"><br><br>
   </section>
 
   <script>
@@ -170,8 +253,32 @@
       navLinks.classList.toggle('active');
       hamburger.classList.toggle('open');
     });
+
+    // Day/Night Mode Toggle
+    const modeToggle = document.getElementById('modeToggle');
+    const body = document.body;
+
+    // Check for saved mode in localStorage or default to night-mode
+    const currentMode = localStorage.getItem('theme') || 'night-mode';
+    body.classList.add(currentMode);
+    if (currentMode === 'day-mode') {
+      modeToggle.textContent = 'Night Mode';
+    } else {
+      modeToggle.textContent = 'Day Mode';
+    }
+
+    modeToggle.addEventListener('click', () => {
+      if (body.classList.contains('night-mode')) {
+        body.classList.replace('night-mode', 'day-mode');
+        modeToggle.textContent = 'Night Mode';
+        localStorage.setItem('theme', 'day-mode');
+      } else {
+        body.classList.replace('day-mode', 'night-mode');
+        modeToggle.textContent = 'Day Mode';
+        localStorage.setItem('theme', 'night-mode');
+      }
+    });
   </script>
 
 </body>
 </html>
-
