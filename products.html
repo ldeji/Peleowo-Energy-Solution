@@ -236,6 +236,7 @@ Html
         gap: 2rem;
         padding: 2rem;
         margin-top: 40px;
+        
       }
 
       .product-card {
@@ -243,8 +244,8 @@ Html
         border-radius: 10px;
         overflow: hidden;
         box-shadow: 0 4px 8px var(--product-card-shadow);
-        transition: transform 0.3s ease, box-shadow 0.3s ease,
-          background-color 0.5s ease;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        background-color: 0.5s ease;
       }
 
       .product-card:hover {
@@ -253,8 +254,10 @@ Html
       }
 
       .product-card img {
-        width: 100%;
-        height: 220px;
+        width: 200%;
+        max-width: 100%;
+        height: auto;
+        display: block;
         object-fit: cover;
         cursor: pointer; /* Add cursor pointer to indicate clickability */
       }
@@ -570,6 +573,11 @@ Html
         <a href="contact.html">Contact</a>
         <a href="checkout.html">Checkout</a>
       </nav>
+       <!-- search bar -->
+    <div class="search-bar-container">
+      <input type="text" id="productSearch" placeholder="Search products..." aria-label="Search products">
+      <button id="searchButton">Search</button>
+    </div>
       <div style="display: flex; align-items: center; gap: 1.5rem">
         <div class="cart-icon" id="cart-icon">
           <i class="fas fa-shopping-cart"></i>
@@ -583,13 +591,14 @@ Html
         <span></span><span></span><span></span>
       </div>
     </header>
+   
     <!-- Hero Section -->
     <section class="hero">
       <h1>Our Products</h1>
       <p>Powering homes and businesses with sustainable energy solutions.</p>
     </section>
     <!-- Products Grid -->
-    <section class="products-container">
+    <section class="products-container" id="productListing">
       <div class="product-card">
         <img
           src="./Image/solar-panel.jpg"
@@ -761,7 +770,7 @@ Html
           data-product-images='["./Image/ev-charger.jpg", "./Image/ev-charger.mid.png", "./Image/ev-charger.last.png"]'
         />
         <div class="product-info">
-          <h3>EV Charger</h3>
+          <h3>Electric Vehicle Charger</h3>
           <p>₦225,000⭐⭐⭐⭐</p>
           <button
             class="add-btn"
@@ -784,7 +793,7 @@ Html
           data-product-images='["./Image/E-Vehicle.png", "./Image/ev.side.png", "./Image/ev.interior.png"]'
         />
         <div class="product-info">
-          <h3>E-Vehicle</h3>
+          <h3>Electric Vehicle</h3>
           <p>₦15,000,000⭐⭐⭐⭐</p>
           <button
             class="add-btn"
@@ -807,7 +816,7 @@ Html
           data-product-images='["./Image/E-Motor-Bike.png", "./Image/e-motorbike.double.png", "./Image/e-motorbike.closeup.png"]'
         />
         <div class="product-info">
-          <h3>E-Motor Bike</h3>
+          <h3>Electric Motor Bike</h3>
           <p>₦7,000,000⭐⭐⭐⭐</p>
           <button
             class="add-btn"
@@ -915,219 +924,7 @@ Html
         </div>
       </div>
     </div>
-
-    <script>
-      const hamburger = document.getElementById("hamburger");
-      const navLinks = document.getElementById("navLinks");
-      hamburger.addEventListener("click", () => {
-        navLinks.classList.toggle("active");
-        hamburger.classList.toggle("open");
-      });
-
-      // Day/Night Mode Toggle
-      const dayNightToggle = document.getElementById("day-night-toggle");
-      const body = document.body;
-
-      // Check for saved theme preference
-      const savedTheme = localStorage.getItem("theme");
-      if (savedTheme === "night") {
-        body.classList.add("night-mode");
-        dayNightToggle.innerHTML = '<i class="fas fa-sun"></i>';
-      } else {
-        dayNightToggle.innerHTML = '<i class="fas fa-moon"></i>';
-      }
-
-      dayNightToggle.addEventListener("click", () => {
-        body.classList.toggle("night-mode");
-        if (body.classList.contains("night-mode")) {
-          dayNightToggle.innerHTML = '<i class="fas fa-sun"></i>';
-          localStorage.setItem("theme", "night");
-        } else {
-          dayNightToggle.innerHTML = '<i class="fas fa-moon"></i>';
-          localStorage.setItem("theme", "day");
-        }
-      });
-
-      // === CART LOGIC ===
-      let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-      const cartIcon = document.getElementById("cart-icon");
-      const cartModal = document.getElementById("cart-modal");
-      const cartModalItems = document.getElementById("cart-modal-items");
-      const cartModalCount = document.getElementById("cart-modal-count");
-      const cartModalTotal = document.getElementById("cart-modal-total");
-      const navItemCount = document.getElementById("nav-item-count");
-
-      function updateCartDisplay() {
-        localStorage.setItem("cart", JSON.stringify(cart));
-
-        let totalItems = 0;
-        let totalPrice = 0;
-        cartModalItems.innerHTML = "";
-
-        cart.forEach((item, index) => {
-          totalItems += item.quantity;
-          totalPrice += item.price * item.quantity;
-
-          const div = document.createElement("div");
-          div.classList.add("cart-item");
-          div.innerHTML = `
-          <img src="${item.image}" alt="${item.name}">
-          <div class="cart-item-details">
-            <h4>${item.name}</h4>
-            <p>₦${item.price.toLocaleString()}</p>
-          </div>
-          <div class="quantity-controls">
-            <button onclick="changeQuantity(${index}, -1)">–</button>
-            <span>${item.quantity}</span>
-            <button onclick="changeQuantity(${index}, 1)">+</button>
-          </div>
-        `;
-          cartModalItems.appendChild(div);
-        });
-
-        cartModalCount.textContent = totalItems;
-        navItemCount.textContent = totalItems;
-        cartModalTotal.textContent = totalPrice.toLocaleString();
-      }
-
-      function changeQuantity(index, delta) {
-        cart[index].quantity += delta;
-        if (cart[index].quantity <= 0) {
-          cart.splice(index, 1);
-        }
-        updateCartDisplay();
-      }
-
-      document.querySelectorAll(".add-btn").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const name = btn.getAttribute("data-name");
-          const price = parseFloat(btn.getAttribute("data-price"));
-          const image = btn.getAttribute("data-image");
-
-          const existing = cart.find((i) => i.name === name);
-          if (existing) {
-            existing.quantity += 1;
-          } else {
-            cart.push({ name, price, image, quantity: 1 });
-          }
-          updateCartDisplay();
-        });
-      });
-
-      cartIcon.addEventListener("click", () => {
-        cartModal.style.display = "flex";
-        updateCartDisplay();
-      });
-
-      document.getElementById("close-cart").addEventListener("click", () => {
-        cartModal.style.display = "none";
-      });
-
-      document
-        .getElementById("clear-cart-btn")
-        .addEventListener("click", () => {
-          cart = [];
-          updateCartDisplay();
-        });
-
-      updateCartDisplay();
-
-      // === PRODUCT DETAIL MODAL LOGIC ===
-      const productDetailModal = document.getElementById(
-        "product-detail-modal"
-      );
-      const productDetailClose = document.getElementById(
-        "product-detail-close"
-      );
-      const productDetailMainImage = document.getElementById(
-        "product-detail-main-image"
-      );
-      const productDetailThumbnails = document.getElementById(
-        "product-detail-thumbnails"
-      );
-      const productDetailName = document.getElementById("product-detail-name");
-      const productDetailPrice = document.getElementById(
-        "product-detail-price"
-      );
-      const productDetailDescription = document.getElementById(
-        "product-detail-description"
-      );
-      const productDetailAddToCartBtn = document.getElementById(
-        "product-detail-add-to-cart"
-      );
-
-      document.querySelectorAll(".product-card img").forEach((img) => {
-        img.addEventListener("click", () => {
-          const name = img.getAttribute("data-product-name");
-          const price = parseFloat(img.getAttribute("data-product-price"));
-          const description = img.getAttribute("data-product-description");
-          const images = JSON.parse(img.getAttribute("data-product-images")); // Parse the array of image paths
-
-          // Populate modal with product details
-          productDetailName.textContent = name;
-          productDetailPrice.textContent = price.toLocaleString();
-          productDetailDescription.textContent = description;
-          productDetailAddToCartBtn.setAttribute("data-name", name);
-          productDetailAddToCartBtn.setAttribute("data-price", price);
-          productDetailAddToCartBtn.setAttribute("data-image", images[0]); // Set default image for cart
-
-          // Clear previous thumbnails
-          productDetailThumbnails.innerHTML = "";
-
-          // Set main image and generate thumbnails
-          productDetailMainImage.src = images[0];
-          images.forEach((imgPath, index) => {
-            const thumb = document.createElement("img");
-            thumb.src = imgPath;
-            thumb.alt = `${name} - view ${index + 1}`;
-            thumb.classList.add("thumbnail");
-            if (index === 0) {
-              thumb.classList.add("active-thumbnail"); // Mark the first as active
-            }
-            thumb.addEventListener("click", () => {
-              productDetailMainImage.src = imgPath;
-              // Remove active class from all and add to clicked one
-              document
-                .querySelectorAll(".thumbnail")
-                .forEach((t) => t.classList.remove("active-thumbnail"));
-              thumb.classList.add("active-thumbnail");
-            });
-            productDetailThumbnails.appendChild(thumb);
-          });
-
-          // Show the modal
-          productDetailModal.style.display = "flex";
-        });
-      });
-
-      productDetailClose.addEventListener("click", () => {
-        productDetailModal.style.display = "none";
-      });
-
-      // Add to cart from product detail modal
-      productDetailAddToCartBtn.addEventListener("click", (event) => {
-        const name = event.target.getAttribute("data-name");
-        const price = parseFloat(event.target.getAttribute("data-price"));
-        const image = event.target.getAttribute("data-image");
-
-        const existing = cart.find((i) => i.name === name);
-        if (existing) {
-          existing.quantity += 1;
-        } else {
-          cart.push({ name, price, image, quantity: 1 });
-        }
-        updateCartDisplay();
-        productDetailModal.style.display = "none"; // Close modal after adding to cart
-      });
-
-      // Close modal if clicked outside content
-      productDetailModal.addEventListener("click", (e) => {
-        if (e.target === productDetailModal) {
-          productDetailModal.style.display = "none";
-        }
-      });
-    </script>
+<script src="script.js" defer></script>
   </body>
 </html>
 
