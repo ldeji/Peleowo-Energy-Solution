@@ -127,7 +127,7 @@ Html
 
       .nav-links {
         display: flex;
-        gap: 1.5rem;
+        gap: 1rem;
       }
 
       .nav-links a {
@@ -513,7 +513,7 @@ Html
         transition: color 0.5s ease;
       }
 
-      /* Flex layout for larger screens */
+      /* Flex layout for  screens */
       @media (min-width: 768px) {
         .product-detail-content {
           flex-direction: row;
@@ -553,14 +553,31 @@ Html
           right: 0;
         }
 
-        .hamburger {
+    .search-bar-container {
+        width: 90%;        /* more room on mobile */
+        flex-direction: column;
+        padding: 10px;
+        margin-right: 2.5rem;
+      }
+
+      .search-bar-container input {
+        width: 100%;
+        border-radius: 5px; 
+      }
+    }
+
+    .cart-icon {
+        margin-left: -2.5rem; /* Adjust for mobile */
+      }
+     
+    .hamburger {
           display: flex;
         }
 
         .product-detail-content {
           max-height: 95vh; /* Adjust for smaller screens */
         }
-      }
+      
     </style>
   </head>
   <body>
@@ -582,9 +599,6 @@ Html
         <div class="cart-icon" id="cart-icon">
           <i class="fas fa-shopping-cart"></i>
           <span id="nav-item-count">0</span>
-        </div>
-        <div id="day-night-toggle">
-          <i class="fas fa-moon"></i>
         </div>
       </div>
       <div class="hamburger" id="hamburger">
