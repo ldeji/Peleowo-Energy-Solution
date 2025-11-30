@@ -513,7 +513,7 @@ Html
         transition: color 0.5s ease;
       }
 
-      /* Flex layout for  screens */
+      /* Flex layout for small screens */
       @media (min-width: 768px) {
         .product-detail-content {
           flex-direction: row;
@@ -534,6 +534,10 @@ Html
         .product-detail-main-image {
           max-width: none; /* Let it grow within its flex container */
         }
+
+        .hamburger {
+      display: none;
+     }
       }
 
       /* --- Responsive --- */
@@ -552,6 +556,9 @@ Html
         .nav-links.active {
           right: 0;
         }
+         .hamburger {
+      display: flex;      
+     }
 
     .search-bar-container {
         width: 90%;        /* more room on mobile */
@@ -570,11 +577,7 @@ Html
         margin-left: -2.5rem; /* Adjust for mobile */
       }
      
-    .hamburger {
-          display: flex;
-          display: none
-        }
-
+  
         .product-detail-content {
           max-height: 95vh; /* Adjust for smaller screens */
         }
