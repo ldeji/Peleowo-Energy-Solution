@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <img src="${item.image}" alt="${item.name}">
           <div class="cart-item-details">
             <h4>${item.name}</h4>
-            <p>₦${item.price.toLocaleString()}</p>
+            <p>${item.price.toLocaleString()}</p>
           </div>
           <div class="quantity-controls">
             <button class="cart-quantity-btn" data-index="${index}" data-delta="-1">–</button>
@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (cartModalCount) cartModalCount.textContent = totalItems;
     if (navItemCount) navItemCount.textContent = totalItems;
-    if (cartModalTotal) cartModalTotal.textContent = `₦${totalPrice.toLocaleString()}`;
+    if (cartModalTotal) cartModalTotal.textContent = `${totalPrice.toLocaleString()}`;
 
     // Re-attach listeners for dynamically created quantity buttons
     if (cartModalItems) {
@@ -220,7 +220,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Check if all necessary elements exist before populating
       if (productDetailName) productDetailName.textContent = name;
-      if (productDetailPrice) productDetailPrice.textContent = `₦${price.toLocaleString()}`;
+      if (productDetailPrice) productDetailPrice.textContent = `${price.toLocaleString()}`;
       if (productDetailDescription) productDetailDescription.textContent = description;
 
       if (productDetailAddToCartBtn) {
